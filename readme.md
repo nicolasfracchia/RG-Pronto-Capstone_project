@@ -43,12 +43,12 @@ This project is intended to simplify web management for non-tech-savvy owners an
 2. ***Ionic / Angular:*** Cross-platform APP for customers and internal management.
 </details>
 
-
+<br>
 
 # DATABASE ERD
 ![Database ERD - V1.0](images/ERD-v1.jpg)  
 
-
+<br>
 
 # API FUNCTIONS
 <details>
