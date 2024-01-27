@@ -1,4 +1,4 @@
-# 1 - SET-UP
+# SET-UP
 1. Installation commands
 ```BASH
 npm init
@@ -84,11 +84,11 @@ module.exports = {
 };
 ```
 
-# 2 - MODELS AND MIGRATIONS
+# MODELS AND MIGRATIONS
 1. Create models and migrations with sequelize:
 ```BASH
 # Sections
-    sequelize model:generate --name Sections --attributes name:string
+    sequelize model:generate --name Sections --attributes name:string,web:string
 # ProductPrices
     sequelize model:generate --name ProductPrices --attributes productId:integer,concept:string,price:float,sectionId:integer
 # Categories
@@ -153,3 +153,43 @@ module.exports = {
 };
 ```
 6. Run migrations to check status: ``` sequelize db:migrate ```
+# SEEDERS
+1. Create seeders:
+```BASH
+# Sections
+	sequelize seed:generate --name sections
+# Categories
+	sequelize seed:generate --name categories
+# User types
+	sequelize seed:generate --name usertypes
+# Orders status
+	sequelize seed:generate --name ordersstatuses
+# Users
+	sequelize seed:generate --name users
+# Products
+	sequelize seed:generate --name products
+# Products prices
+	sequelize seed:generate --name productprices
+# Orders
+	sequelize seed:generate --name orders
+# Orders products
+	sequelize seed:generate --name ordersproducts
+```
+2. Create seeders information:
+```JavaScript
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.bulkInsert('TABLE_NAME', [
+      {FIELD: VALUE,FIELD: VALUE}, // ROWS
+      ...
+    ], {});
+  },
+
+  async down (queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('TABLE_NAME', null, {});
+  }
+};
+```
