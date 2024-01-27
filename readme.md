@@ -193,3 +193,4 @@ module.exports = {
   }
 };
 ```
+3. Run seeders: ``` sequelize db:seed:all ```
