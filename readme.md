@@ -1,4 +1,4 @@
-<details>
+<details> 
     <summary><h1>PROJECT DESCRIPTION</h1></summary>
 <h3>APP NAME: PRONTO</h3>
 <details>
