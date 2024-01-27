@@ -1,6 +1,6 @@
 <details>
     <summary><h1>PROJECT DESCRIPTION</h1></summary>
-### APP NAME: ***PRONTO***
+<h3>APP NAME: PRONTO</h3>
 <details>
     <summary><h3>SHORT DESCRIPTION:</h3></summary>
 
