@@ -98,7 +98,7 @@ module.exports = {
 # OrdersStatus
     sequelize model:generate --name OrdersStatus --attributes name:string
 # Users
-    sequelize model:generate --name Users --attributes name:string,lastName:string,address:string,usertypesId:integer
+    sequelize model:generate --name Users --attributes name:string,lastName:string,address:string,email:string,usertypesId:integer
 # Products
     sequelize model:generate --name Products --attributes name:string,image:string,categoryId:integer,order:integer
 # Orders (This one uses the automatic fields "CreatedAt" and "UpdatedAt")
