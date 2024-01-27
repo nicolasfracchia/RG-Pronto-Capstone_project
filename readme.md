@@ -47,6 +47,15 @@ This project is intended to simplify web management for non-tech-savvy owners an
 
 <details>
     <summary><h1>DTABASE ERD</h1></summary>
-    
+
 ![Database ERD - V1.0](images/ERD-v1.jpg)
+</details>
+
+
+<details>
+    <summary><h1>API FUNCTIONS</h1></summary>
+    
+| MODULE | METHOD | ROUTE | PARAMS | OPTIONAL PARAMS | FUNCTION | DESCRIPTION |
+| --- | --- | --- | --- | --- | --- | --- |
+
 </details>
