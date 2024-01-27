@@ -1,7 +1,7 @@
 # PROJECT DESCRIPTION
 
 
-### APP NAME: PRONTO 
+### APP NAME: ***PRONTO***
 
 
 ### SHORT DESCRIPTION:
@@ -40,7 +40,7 @@ This project is intended to simplify web management for non-tech-savvy owners an
 3. ***Customers:*** Access limited to website navigation and own orders.
 
 
-### TYPE OF APPLICATION: WEB AND MOBILE
+### TYPE OF APPLICATION: ***WEB AND MOBILE***
 
 1. ***Website:*** HTML, SCSS and Bootstrap to improve SEO.
 2. ***Ionic / Angular:*** Cross-platform APP for customers and internal management.
