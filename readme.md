@@ -1,4 +1,5 @@
-# PROJECT DESCRIPTION
+<details>
+    <summary><h1>PROJECT DESCRIPTION</h1></summary>
 ### APP NAME: ***PRONTO***
 <details>
     <summary><h3>SHORT DESCRIPTION:</h3></summary>
@@ -41,4 +42,5 @@ This project is intended to simplify web management for non-tech-savvy owners an
 
 1. ***Website:*** HTML, SCSS and Bootstrap to improve SEO.
 2. ***Ionic / Angular:*** Cross-platform APP for customers and internal management.
+</details>
 </details>
