@@ -1,8 +1,6 @@
 const { Op, where } = require('sequelize');
-const {
-    Users,
-    UserTypes
-} = require('../models');
+const { Users, UserTypes } = require('../models');
+const UserTypesController = require('./UserTypesController');
 
 const UserController = {
     searchData: {
@@ -100,8 +98,13 @@ const UserController = {
         }
 
         try{
-            // TO-DO: VALIDATE TYPE BY ID, NOT JUST INTEGER
             const userExists = await UserController.searchByFilters({email: email});
+            const userTypeExists = await UserTypesController.getUserTypeById(parseInt(type));
+
+            if(!userTypeExists){
+                res.status(500).send({error: "The defined user type does not exist."});
+                return false;
+            }
 
             if(userExists && userExists.length > 0){
                 res.status(500).send({error: "An user with that email already exists."})
@@ -127,11 +130,17 @@ const UserController = {
             if(!user){
                 res.status(404).send("The requested user does not exist");
             }else{
-                // TO-DO: VALIDATE TYPE BY ID, NOT JUST INTEGER
-                user.usertypesId = parseInt(req.body.type) || user.usertypesId;
                 user.name = req.body.name || user.name;
                 user.lastName = req.body.lastName || user.lastName;
                 user.address = req.body.address || user.address;
+                if(req.body.type){
+                    const type = parseInt(req.body.type);
+                    const userTypeExists = await UserTypesController.getUserTypeById(type);
+
+                    if(userTypeExists){
+                        user.usertypesId = type || user.usertypesId;
+                    }
+                }
                 if(req.body.email){
                     try { 
                         const userExists = await UserController.searchByFilters({email: req.body.email});
