@@ -4,6 +4,7 @@ const database = require('./config/database');
 const express = require('express');
 const app = express();
 const port = process.env.PORT;
+const routes = require('./routes');
 
 database.authenticate()
     .then(function () {
@@ -20,7 +21,11 @@ app.listen(port, () => {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+
+/* - - - - - ROUTES - - - - - */
+
 app.get('/', (req, res) => {
     res.send('WORKS!');
 });
 
+app.use('/users', routes.userRoutes);
