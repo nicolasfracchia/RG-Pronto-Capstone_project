@@ -29,3 +29,4 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', routes.userRoutes);
+app.use('/categories', routes.categoriesRoutes);
