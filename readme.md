@@ -108,7 +108,7 @@ This project is intended to simplify web management for non-tech-savvy owners an
 </details>
 
 <details>
-    <summary>PRODUCTS</summary>
+    <summary> <img src="https://icon-library.com/images/done-icon/done-icon-5.jpg" alt="Tick" width="14" /> PRODUCTS</summary>
     
 |METHOD|ROUTE|PARAMS|OPTIONAL<br>PARAMS|FUNCTION|DESCRIPTION|
 |---|---|---|---|---|---|
