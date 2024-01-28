@@ -1,5 +1,8 @@
 # SET-UP
-1. Installation commands
+
+<details>
+    <summary> &nbsp;&nbsp;1. Installation commands</summary>
+
 ```BASH
 npm init
 npm install express sequelize sequelize-cli
@@ -7,7 +10,11 @@ npx sequelize init
 npm install mariadb
 npm install dotenv #To handle credentials through a .env file
 ```
-2. Create .env file with port and database credentials:
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;2. Create .env file with port and database credentials</summary>
+
 ```BASH
 DB_HOST=
 DB_USER=
@@ -16,7 +23,11 @@ DB_DATABASE=
 DB_DIALECT=
 PORT=
 ```
-3. Create file config/database.js to handle connection with Sequelize:
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;3. Create file config/database.js to handle connection with Sequelize</summary>
+
 ```JavaScript
 const Sequelize = require("sequelize");
 
@@ -30,7 +41,11 @@ const database = new Sequelize(dbDatabase, dbUser, dbPassword, {dialect:dbDialec
 
 module.exports = database;
 ```
-4. Create index.js file with minimuim information
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;4. Create index.js file with minimuim information</summary>
+
 ```JavaScript
 require('dotenv').config();
 
@@ -55,10 +70,18 @@ app.get('/', (req, res) => {
     res.send('WORKS!');
 });
 ```
-5. Test application running: ``` node index ```. 
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;5. Test application running: ``` node index ``` </summary>
+ 
  - Should log: "DB CONNECTED SUCCESSFULLY" and "Server running on port: ".  
  - Route GET ``` / ``` should show the message "WORKS!".
-6. Create file ".sequelizerc.js" to load configuration for Sequelize CLI
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;6. Create file ".sequelizerc.js" to load configuration for Sequelize CLI</summary>
+
 ```JavaScript
 // .sequelizerc.js
 
@@ -66,7 +89,11 @@ module.exports = {
     config: "config/config.js"
 };
 ```
-7. Change file "config/config.json" to "config/config.js" to allow using environment variables
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;7. Change file "config/config.json" to "config/config.js" to allow using environment variables</summary>
+
 ```JavaScript
 // config/config.js
 
@@ -83,9 +110,15 @@ module.exports = {
   ...
 };
 ```
+</details>
+
+<br>
 
 # MODELS AND MIGRATIONS
-1. Create models and migrations with sequelize:
+
+<details>
+    <summary> &nbsp;&nbsp;1. Create models and migrations with sequelize:</summary>
+
 ```BASH
 # Sections
     sequelize model:generate --name Sections --attributes name:string,web:string
@@ -106,10 +139,17 @@ module.exports = {
 # OrdersProducts
     sequelize model:generate --name OrdersProducts --attributes orderId:integer,productId:integer,unitPrice:float,quantity:integer,discount:float
 ```
+</details>
+
 2. Update models to set fields "NOT_NULL" and "timestamps: false" on every model except Orders.
+
 3. Update migrations generated with the models to remove timestamps (createdAt and updatedAt), except for Orders.
+
 4. Run migrations to check status: ``` sequelize db:migrate ```
-5. Create migrations to set foreign keys:
+
+<details>
+    <summary> &nbsp;&nbsp;5. Create migrations to set foreign keys:</summary>
+
 ```BASH
 # ProductPrices - Sections
 	sequelize migration:generate --name FK-ProductPrices-Sections
@@ -128,7 +168,11 @@ module.exports = {
 # OrdersProducts - Products
 	sequelize migration:generate --name FK-OrdersProducts-Products
 ```
-5. Set foreign key:
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;6. Set foreign key</summary>
+
 ```JavaScript
 'use strict';
 
@@ -152,9 +196,17 @@ module.exports = {
   }
 };
 ```
-6. Run migrations to check status: ``` sequelize db:migrate ```
+</details>
+
+7. Run migrations to check status: ``` sequelize db:migrate ```
+
+<br>
+
 # SEEDERS
-1. Create seeders:
+
+<details>
+    <summary> &nbsp;&nbsp;1. Create seeders</summary>
+
 ```BASH
 # Sections
 	sequelize seed:generate --name sections
@@ -175,7 +227,11 @@ module.exports = {
 # Orders products
 	sequelize seed:generate --name ordersproducts
 ```
-2. Create seeders information:
+</details>
+
+<details>
+    <summary> &nbsp;&nbsp;2. Create seeders information</summary>
+
 ```JavaScript
 'use strict';
 
@@ -193,4 +249,6 @@ module.exports = {
   }
 };
 ```
+</details>
+
 3. Run seeders: ``` sequelize db:seed:all ```
