@@ -52,7 +52,7 @@ This project is intended to simplify web management for non-tech-savvy owners an
 
 # API FUNCTIONS
 <details>
-    <summary>CATEGORIES</summary>
+    <summary> <img src="https://icon-library.com/images/done-icon/done-icon-5.jpg" alt="Tick" width="14" /> CATEGORIES</summary>
     
 |METHOD|ROUTE|PARAMS|OPTIONAL<br>PARAMS|FUNCTION|DESCRIPTION|
 |---|---|---|---|---|---|
@@ -64,7 +64,7 @@ This project is intended to simplify web management for non-tech-savvy owners an
 </details>
 
 <details>
-    <summary>ORDERS STATUS</summary>
+    <summary> <img src="https://icon-library.com/images/done-icon/done-icon-5.jpg" alt="Tick" width="14" /> ORDERS STATUS</summary>
     
 |METHOD|ROUTE|PARAMS|OPTIONAL<br>PARAMS|FUNCTION|DESCRIPTION|
 |---|---|---|---|---|---|
@@ -76,7 +76,7 @@ This project is intended to simplify web management for non-tech-savvy owners an
 </details>
 
 <details>
-    <summary>USERS TYPES</summary>
+    <summary> <img src="https://icon-library.com/images/done-icon/done-icon-5.jpg" alt="Tick" width="14" /> USERS TYPES</summary>
     
 |METHOD|ROUTE|PARAMS|OPTIONAL<br>PARAMS|FUNCTION|DESCRIPTION|
 |---|---|---|---|---|---|
@@ -85,7 +85,7 @@ This project is intended to simplify web management for non-tech-savvy owners an
 </details>
 
 <details>
-    <summary>SECTIONS</summary>
+    <summary> <img src="https://icon-library.com/images/done-icon/done-icon-5.jpg" alt="Tick" width="14" /> SECTIONS</summary>
     
 |METHOD|ROUTE|PARAMS|OPTIONAL<br>PARAMS|FUNCTION|DESCRIPTION|
 |---|---|---|---|---|---|
@@ -97,7 +97,7 @@ This project is intended to simplify web management for non-tech-savvy owners an
 </details>
 
 <details>
-    <summary>USERS</summary>
+    <summary> <img src="https://icon-library.com/images/done-icon/done-icon-5.jpg" alt="Tick" width="14" /> USERS</summary>
     
 |METHOD|ROUTE|PARAMS|OPTIONAL<br>PARAMS|FUNCTION|DESCRIPTION|
 |---|---|---|---|---|---|
