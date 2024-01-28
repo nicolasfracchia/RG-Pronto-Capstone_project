@@ -30,3 +30,4 @@ app.get('/', (req, res) => {
 
 app.use('/users', routes.userRoutes);
 app.use('/categories', routes.categoriesRoutes);
+app.use('/ordersstatus', routes.ordersStatusRoutes);
