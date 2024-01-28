@@ -33,3 +33,4 @@ app.use('/categories', routes.categoriesRoutes);
 app.use('/ordersstatus', routes.ordersStatusRoutes);
 app.use('/userstypes', routes.userTypesRoutes);
 app.use('/sections', routes.sectionsRoutes);
+app.use('/products', routes.productsRoutes);
