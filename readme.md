@@ -252,3 +252,18 @@ module.exports = {
 </details>
 
 3. Run seeders: ``` sequelize db:seed:all ```
+
+<br>
+
+# ROUTES
+
+1. All the routes are defined by module on "routes/".
+2. The index file "routes/index.js" is used to load all the routes in the main "index.js"
+3. In the main "index.js" the routes are loaded with a prefix for each module.
+4. All the routes are pointing to a controller function to make the code reusable.
+
+# CONTROLLERS
+
+1. All the controllers are defined inside "controllers/" to modularize the code and make it reusable.
+2. Each controller represents a module on the application instead of a model.
+<!-- 3. All the model relationships were defined upon necessity while building the controllers. -->
