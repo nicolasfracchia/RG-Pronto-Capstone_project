@@ -1,0 +1,20 @@
+ion-card#special-container{
+    
+    margin:1dvh 0;
+    
+    ion-card-header{
+    
+        ion-card-title{
+            text-align:center;
+            padding:1dvh 1dvw;
+            font-weight: bold;
+        }
+    }
+}
+ion-text#text-1{
+    color:var(--pronto-red);
+    margin: 10dvh 0;
+}
+ion-text#text-2{
+    color:var(--pronto-yellow);
+}

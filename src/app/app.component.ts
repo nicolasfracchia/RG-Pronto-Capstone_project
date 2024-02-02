@@ -8,6 +8,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
+  host: {
+    theme: 'light'
+  },
   imports: [
     CommonModule,
     IonApp,
