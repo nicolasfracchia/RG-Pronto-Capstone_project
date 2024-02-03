@@ -113,6 +113,7 @@ const ProductsController = {
                     products: section.ProductPrices.map((productPrice) => {
                         return {
                             product: productPrice.Product.name,
+                            image: productPrice.Product.image,
                             category: productPrice.Product.Category.name,
                             prices: [
                                 {
