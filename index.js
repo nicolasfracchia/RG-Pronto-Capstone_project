@@ -5,19 +5,17 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT;
 const routes = require('./routes');
+const cors = require('cors');
 
 database.authenticate()
-    .then(function () {
-        console.log('DB CONNECTED SUCCESSFULLY');
-    })
-    .catch(function (error) {
-        console.log('DATABASE CONNECTION ERROR:', error);
-    });
+    .then(function () { console.log('DB CONNECTED SUCCESSFULLY'); })
+    .catch(function (error) { console.log('DATABASE CONNECTION ERROR:', error); });
 
-app.listen(port, () => {
-    console.log(`Server running on port: ${port}`);
-});
+app.listen(port, () => { console.log(`Server running on port: ${port}`); });
 
+/* - - - - - GLOBAL MIDDLEWARES - - - - - */
+
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
