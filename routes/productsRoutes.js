@@ -4,6 +4,7 @@ const ProductsController = require('../controllers/ProductsController');
 
 // GET
 router.get('/', ProductsController.getAllProducts);
+router.get('/sections/:sectionName', ProductsController.getProductsBySection);
 router.get('/:productId', ProductsController.getProduct);
 
 // POST
