@@ -9,10 +9,9 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, 
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonItem, IonText, 
+  imports: [
     IonContent,
     CommonModule, 
-    FormsModule,
     HeaderComponent,
 
     IonCard,
