@@ -40,3 +40,13 @@ bootstrapApplication(AppComponent, {
 ## app/components/header.component
 * Side menu icon
 * Page title
+
+## app/components/products-by-section.component
+* Organized list of products for a section:
+  - Menu
+  - Catering
+
+## app/components/contact
+* Contact form
+* Social media list
+* Locations map

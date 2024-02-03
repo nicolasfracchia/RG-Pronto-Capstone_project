@@ -18,4 +18,8 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'contact',
+    loadComponent: () => import('./pages/contact/contact.page').then( m => m.ContactPage)
+  },
 ];
