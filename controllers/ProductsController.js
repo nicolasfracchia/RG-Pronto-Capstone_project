@@ -107,8 +107,7 @@ const ProductsController = {
         }
     },
     formatResultFromWebSection: (products) => {
-        const p = {
-            sections: products.map((section) => {
+        const p = products.map((section) => {
                 return {
                     name: section.name,
                     products: section.ProductPrices.map((productPrice) => {
@@ -124,18 +123,17 @@ const ProductsController = {
                         };
                     }),
                 };
-            }),
-        };
+            });
 
         // Group prices by produc
-        p.sections.forEach((section) => {
+        p.forEach((section) => {
             section.products.forEach((product, index) => {
-                const existingProductIndex = p.sections.findIndex(
+                const existingProductIndex = p.findIndex(
                     (s) => s.name === section.name && s.products.findIndex((p) => p.product === product.product) !== -1
                 );
 
                 if (existingProductIndex !== -1 && existingProductIndex !== index) {
-                    p.sections[existingProductIndex].products
+                    p[existingProductIndex].products
                         .find((p) => p.product === product.product)
                         .prices.push(...product.prices);
                     // Remove duplicated products
