@@ -27,8 +27,8 @@ export class MenuComponent {
 
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'In-store Menu', url: '/in-store-menu', icon: 'menu' },
-    { title: 'Catering Menu', url: '/catering-menu', icon: 'receipt' },
+    { title: 'In-store Menu', url: '/menu', icon: 'menu' },
+    { title: 'Catering Menu', url: '/catering', icon: 'receipt' },
     { title: 'Contact', url: '/contact', icon: 'send' },
     { title: 'ORDER HERE', url: '/order', icon: 'cart' },
   ];
