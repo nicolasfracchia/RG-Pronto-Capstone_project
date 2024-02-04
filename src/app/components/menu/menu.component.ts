@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenuToggle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { cart, home, analytics, menu, receipt, send, apps, documents } from 'ionicons/icons';
+import { cart, home, analytics, menu, receipt, send, apps, documents, people } from 'ionicons/icons';
 
 @Component({
   selector: 'app-menu',
@@ -33,13 +33,14 @@ export class MenuComponent {
     { title: 'ORDER HERE', url: '/order', icon: 'cart' },
   ];
   public appPagesCms = [
+    { title: 'Users', url: '/cms/users', icon: 'people' },
     { title: 'Sections', url: '/cms/sections', icon: 'documents' },
     { title: 'Categories', url: '/cms/categories', icon: 'apps' },
     { title: 'Orders status', url: '/cms/orders-status', icon: 'analytics' },
   ];
   
   constructor() {
-    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents });
+    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents, people });
   }
 
 }

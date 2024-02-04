@@ -34,4 +34,8 @@ export const routes: Routes = [
     path: 'cms/sections',
     loadComponent: () => import('./pages/cms/sections/sections.page').then( m => m.SectionsPage)
   },
+  {
+    path: 'cms/users',
+    loadComponent: () => import('./pages/cms/users/users.page').then( m => m.UsersPage)
+  },
 ];
