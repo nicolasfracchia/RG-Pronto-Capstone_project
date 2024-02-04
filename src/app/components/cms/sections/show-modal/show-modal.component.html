@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ section.name }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label>ID: </ion-label> {{ section.id }}
+    </ion-item>
+    <ion-item>
+      <ion-label>Name: </ion-label> {{ section.name }}
+    </ion-item>
+    <ion-item>
+      <ion-label>Web: </ion-label> {{ section.web }}
+    </ion-item>
+  </ion-list>
+</ion-content>
