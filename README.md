@@ -50,3 +50,6 @@ bootstrapApplication(AppComponent, {
 * Contact form
 * Social media list
 * Locations map
+
+## app/components/cms
+All the CMS components, grouped by module

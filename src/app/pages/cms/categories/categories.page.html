@@ -1,0 +1,31 @@
+<app-header pageTitle="Categories"></app-header>
+<ion-content [fullscreen]="true" color="light">
+
+  <ion-list>
+    <ion-item *ngFor="let c of categories">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label>{{ c.name }}</ion-label>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-icon name="eye-outline" (click)="show(c)" color="primary"></ion-icon>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-icon name="create-outline" (click)="formModal(c)" color="warning"></ion-icon>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-icon name="trash-outline" (click)="delete(c)" color="danger"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="formModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

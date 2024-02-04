@@ -14,12 +14,16 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/catering/catering.page').then( m => m.CateringPage)
   },
   {
+    path: 'contact',
+    loadComponent: () => import('./pages/contact/contact.page').then( m => m.ContactPage)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
   },
   {
-    path: 'contact',
-    loadComponent: () => import('./pages/contact/contact.page').then( m => m.ContactPage)
+    path: 'cms/categories',
+    loadComponent: () => import('./pages/cms/categories/categories.page').then( m => m.CategoriesPage)
   },
 ];
