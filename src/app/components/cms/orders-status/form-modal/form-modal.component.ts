@@ -4,9 +4,9 @@ import { ModalController } from '@ionic/angular';
 import { IonHeader, IonToolbar ,IonButtons, IonTitle ,IonIcon, IonButton ,IonContent ,IonList ,IonItem ,IonLabel ,IonDatetimeButton ,IonInput ,IonTextarea ,IonModal } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
-import { Category } from 'src/app/interfaces/category';
+import { OrderStatus } from 'src/app/interfaces/order-status';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CategoriesService } from 'src/app/services/categories.service';
+import { OrdersService } from 'src/app/services/orders.service';
 
 @Component({
   selector: 'app-form-modal',
@@ -31,7 +31,7 @@ import { CategoriesService } from 'src/app/services/categories.service';
 })
 export class FormModalComponent  implements OnInit {
 
-  @Input() category:Category | undefined;
+  @Input() orderStatus:OrderStatus | undefined;
   @Input() refreshList:any;
   @Input() toast:any;
   frm: FormGroup;
@@ -39,7 +39,7 @@ export class FormModalComponent  implements OnInit {
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-    private _categoriesService: CategoriesService
+    private _ordersStatusService: OrdersService
   ) {
     addIcons({close})
 
@@ -49,12 +49,12 @@ export class FormModalComponent  implements OnInit {
   }
 
   ngOnInit() {
-    this.frm.patchValue({name: this.category?.name});
+    this.frm.patchValue({name: this.orderStatus?.name});
   }
 
   onSubmit(){
     const formData = this.frm.value;
-    if(this.category){
+    if(this.orderStatus){
       this.update();
     }else{
       this.create();
@@ -63,10 +63,10 @@ export class FormModalComponent  implements OnInit {
   }
 
   update():any{
-    if(this.category?.id){
-      this._categoriesService.updateCategory(this.category.id, this.frm.value).subscribe((result:Category) => {
+    if(this.orderStatus?.id){
+      this._ordersStatusService.updateOrdersStatus(this.orderStatus.id, this.frm.value).subscribe((result:OrderStatus) => {
         this.refreshList();
-        this.toast('Category updated successfuly!');
+        this.toast('Status name updated successfuly!');
         this.closeModal();
       });
     }else{
@@ -75,10 +75,10 @@ export class FormModalComponent  implements OnInit {
   }
 
   create(){
-    this._categoriesService.newCategory(this.frm.value).subscribe((result:Category) => {
+    this._ordersStatusService.newOrdersStatus(this.frm.value).subscribe((result:OrderStatus) => {
       this.frm.reset();
       this.refreshList();
-      this.toast('Category created successfuly!');
+      this.toast('Order status created successfuly!');
       this.closeModal();
     });
   }

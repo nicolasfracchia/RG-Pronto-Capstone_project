@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { Category } from 'src/app/interfaces/category';
+import { OrdersService } from 'src/app/services/orders.service';
+import { OrderStatus } from 'src/app/interfaces/order-status';
 import { addIcons } from 'ionicons';
 import { createOutline, eyeOutline, trashOutline, add } from 'ionicons/icons';
 import { Router } from '@angular/router';
-import { ShowModalComponent } from 'src/app/components/cms/categories/show-modal/show-modal.component';
-import { FormModalComponent } from 'src/app/components/cms/categories/form-modal/form-modal.component';
+import { ShowModalComponent } from 'src/app/components/cms/orders-status/show-modal/show-modal.component';
+import { FormModalComponent } from 'src/app/components/cms/orders-status/form-modal/form-modal.component';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.page.html',
-  styleUrls: ['./categories.page.scss'],
+  selector: 'app-orders-status',
+  templateUrl: './orders-status.page.html',
+  styleUrls: ['./orders-status.page.scss'],
   standalone: true,
   providers: [
     ModalController
@@ -37,50 +37,50 @@ import { AlertController, ModalController, ToastController } from '@ionic/angula
     IonFabButton
   ]
 })
-export class CategoriesPage{
+export class OrdersStatusPage {
 
-  categories!: Category[];
+  statuses!: OrderStatus[];
 
   constructor(
-    private _categoriesService: CategoriesService, 
+    private _ordersService: OrdersService, 
     private router: Router,
     private modalController: ModalController,
     private toastController: ToastController,
     private alertController: AlertController
   ) { 
-    this.getCategories();
+    this.getStatuses();
     addIcons({eyeOutline, createOutline, trashOutline, add})
   }
 
-  getCategories(){
-      this._categoriesService.getCategories().subscribe((results) => {
-        this.categories = results;
+  getStatuses(){
+      this._ordersService.getAllOrdersStatus().subscribe((results) => {
+        this.statuses = results;
       });
   }
 
-  async show(category:Category){
+  async show(status:OrderStatus){
     const modal = await this.modalController.create({
       component: ShowModalComponent,
       handleBehavior: 'cycle',
       initialBreakpoint:0.25,
       breakpoints:[0, 0.25, 0.5, 0.75, 1],
       componentProps: {
-        category: category
+        orderStatus: status
       },
     });
 
     await modal.present();
   }
 
-  async formModal(category:Category | undefined = undefined){
+  async formModal(status:OrderStatus | undefined = undefined){
     const modal = await this.modalController.create({
       component: FormModalComponent,
       handleBehavior: 'cycle',
       initialBreakpoint:0.25,
       breakpoints:[0, 0.25, 0.5, 0.75, 1],
       componentProps: {
-        category: category,
-        refreshList: this.getCategories.bind(this),
+        orderStatus: status,
+        refreshList: this.getStatuses.bind(this),
         toast: this.presentToast.bind(this)
       },
     });
@@ -99,18 +99,18 @@ export class CategoriesPage{
     await toast.present();
   }
 
-  async delete(category:Category){
+  async delete(status:OrderStatus){
 
     const alert = await this.alertController.create({
-      header: `Are you sure you want to delete this category?`,
-      message: `${category.name}`,
+      header: `Are you sure you want to delete this status?`,
+      message: `${status.name}`,
       buttons: [
         {text: 'Cancel',role: 'cancel'},
         {
           text: 'Delete',
           cssClass: 'danger',
           handler: () => {
-            this.deleteConfirmed(category.id);
+            this.deleteConfirmed(status.id);
           }
         }
       ]
@@ -120,14 +120,14 @@ export class CategoriesPage{
   }
 
   deleteConfirmed(id:number){
-    this._categoriesService.deleteCategory(id).subscribe(
-      (result:Category) => {
-        this.presentToast('Category deleted successfully');
-        this.getCategories();
+    this._ordersService.deleteOrdersStatus(id).subscribe(
+      (result:OrderStatus) => {
+        this.presentToast('Status deleted successfully');
+        this.getStatuses();
       },
       (error:any) => {
         console.error('ERROR DELETE:',error.message)
-        this.presentToast("Error deleting the category: " + error.message, 'danger');
+        this.presentToast("Error deleting the status: " + error.message, 'danger');
       }
     );
   }
