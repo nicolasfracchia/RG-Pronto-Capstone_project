@@ -31,14 +31,9 @@ export class ShowModalComponent  implements OnInit {
 
   constructor() {
     addIcons({close});
-    console.log('LLEGA MODAL USERS - SHOW:');
-    console.log('USER MODAL: ',this.user);
   }
 
-  ngOnInit() {
-    console.log('LLEGA MODAL USERS - SHOW - ONINIT:');
-    console.log('USER MODAL - ONINIT: ',this.user);
-  }
+  ngOnInit() {}
 
   closeModal(){
     return true;
