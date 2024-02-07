@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+
 import { IonHeader, IonToolbar ,IonButtons, IonTitle ,IonIcon, IonButton ,IonContent ,IonList ,IonItem ,IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
@@ -29,14 +29,13 @@ export class ShowModalComponent{
 
   @Input() section!:Section;
 
-  constructor(private modalController: ModalController) {
+  constructor() {
     addIcons({close})
   }
 
   ngOnInit() {}
 
-  closeModal() {
-    this.modalController.dismiss();
+  closeModal(){
+    return true;
   }
-
 }

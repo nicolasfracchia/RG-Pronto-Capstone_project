@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, ModalController } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { OrdersService } from 'src/app/services/orders.service';
 import { OrderStatus } from 'src/app/interfaces/order-status';
@@ -9,16 +9,13 @@ import { createOutline, eyeOutline, trashOutline, add } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { ShowModalComponent } from 'src/app/components/cms/orders-status/show-modal/show-modal.component';
 import { FormModalComponent } from 'src/app/components/cms/orders-status/form-modal/form-modal.component';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-orders-status',
   templateUrl: './orders-status.page.html',
   styleUrls: ['./orders-status.page.scss'],
   standalone: true,
-  providers: [
-    ModalController
-  ],
   imports: [  
     CommonModule,
     HeaderComponent,

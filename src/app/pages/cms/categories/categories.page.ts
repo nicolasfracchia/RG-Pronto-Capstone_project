@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, ModalController } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/interfaces/category';
@@ -9,16 +9,13 @@ import { createOutline, eyeOutline, trashOutline, add } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { ShowModalComponent } from 'src/app/components/cms/categories/show-modal/show-modal.component';
 import { FormModalComponent } from 'src/app/components/cms/categories/form-modal/form-modal.component';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.page.html',
   styleUrls: ['./categories.page.scss'],
   standalone: true,
-  providers: [
-    ModalController
-  ],
   imports: [  
     CommonModule,
     HeaderComponent,

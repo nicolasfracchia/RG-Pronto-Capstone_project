@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { IonHeader, IonToolbar ,IonButtons, IonTitle ,IonIcon, IonButton ,IonContent ,IonList ,IonItem ,IonLabel ,IonDatetimeButton ,IonInput ,IonTextarea ,IonModal } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
@@ -37,7 +36,6 @@ export class FormModalComponent  implements OnInit {
   frm: FormGroup;
 
   constructor(
-    private modalController: ModalController,
     private formBuilder: FormBuilder,
     private _secionsService: SectionsService
   ) {
@@ -68,7 +66,7 @@ export class FormModalComponent  implements OnInit {
       this._secionsService.updateSection(this.section.id, this.frm.value).subscribe((result:Section) => {
         this.refreshList();
         this.toast('Section updated successfuly!');
-        this.closeModal();
+
       });
     }else{
       return false;
@@ -80,12 +78,12 @@ export class FormModalComponent  implements OnInit {
       this.frm.reset();
       this.refreshList();
       this.toast('Section created successfuly!');
-      this.closeModal();
+
     });
   }
 
-  closeModal() {
-    this.modalController.dismiss();
-  }
 
+  closeModal(){
+    return true;
+  }
 }

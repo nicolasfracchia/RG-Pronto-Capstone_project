@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, ModalController } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/interfaces/user';
@@ -10,16 +10,13 @@ import { createOutline, eyeOutline, trashOutline, add } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { ShowModalComponent } from 'src/app/components/cms/users/show-modal/show-modal.component';
 import { FormModalComponent } from 'src/app/components/cms/users/form-modal/form-modal.component';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.scss'],
   standalone: true,
-  providers: [
-    ModalController
-  ],
   imports: [  
     CommonModule,
     HeaderComponent,
@@ -38,6 +35,7 @@ import { AlertController, ModalController, ToastController } from '@ionic/angula
     IonFabButton
   ]
 })
+
 export class UsersPage {
 
   users!: User[];
@@ -74,7 +72,7 @@ export class UsersPage {
       },
     });
 
-    await modal.present();
+    modal.present();
   }
 
   async formModal(user:User | undefined = undefined){
@@ -91,7 +89,7 @@ export class UsersPage {
       },
     });
 
-    await modal.present();
+    modal.present();
   }
 
   async presentToast(message:string, color:string = 'success') {

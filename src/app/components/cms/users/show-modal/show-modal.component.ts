@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+
 import { IonHeader, IonToolbar ,IonButtons, IonTitle ,IonIcon, IonButton ,IonContent ,IonList ,IonItem ,IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
@@ -29,14 +29,18 @@ export class ShowModalComponent  implements OnInit {
 
   @Input() user!:User;
 
-  constructor(private modalController: ModalController) {
-    addIcons({close})
+  constructor() {
+    addIcons({close});
+    console.log('LLEGA MODAL USERS - SHOW:');
+    console.log('USER MODAL: ',this.user);
   }
 
-  ngOnInit() {}
-
-  closeModal() {
-    this.modalController.dismiss();
+  ngOnInit() {
+    console.log('LLEGA MODAL USERS - SHOW - ONINIT:');
+    console.log('USER MODAL - ONINIT: ',this.user);
   }
 
+  closeModal(){
+    return true;
+  }
 }

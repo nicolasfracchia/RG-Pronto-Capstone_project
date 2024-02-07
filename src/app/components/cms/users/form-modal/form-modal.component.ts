@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { IonHeader, IonToolbar ,IonButtons, IonTitle ,IonIcon, IonButton ,IonContent ,IonList ,IonItem ,IonLabel ,IonDatetimeButton ,IonInput ,IonTextarea ,IonModal, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
@@ -40,7 +39,6 @@ export class FormModalComponent  implements OnInit {
   frm: FormGroup;
 
   constructor(
-    private modalController: ModalController,
     private formBuilder: FormBuilder,
     private _usersService: UsersService
   ) {
@@ -53,6 +51,8 @@ export class FormModalComponent  implements OnInit {
       email: ['', [Validators.required]],
       type: ['', [Validators.required]]
     });
+    console.log('LLEGA MODAL USERS - FRM:');
+    console.log('USER MODAL: ',this.user);
   }
 
   ngOnInit() {
@@ -63,6 +63,9 @@ export class FormModalComponent  implements OnInit {
       email: this.user?.email,
       type: this.user?.UserType.id
     });
+
+    console.log('LLEGA MODAL USERS - FRM - ONINIT:');
+    console.log('USER MODAL - ONINIT: ',this.user);
   }
 
   onSubmit(){
@@ -80,7 +83,7 @@ export class FormModalComponent  implements OnInit {
       this._usersService.updateUser(this.user.id, this.frm.value).subscribe((result:User) => {
         this.refreshList();
         this.toast('User updated successfuly!');
-        this.closeModal();
+
       });
     }else{
       return false;
@@ -92,12 +95,12 @@ export class FormModalComponent  implements OnInit {
       this.frm.reset();
       this.refreshList();
       this.toast('User created successfuly!');
-      this.closeModal();
+
     });
   }
 
-  closeModal() {
-    this.modalController.dismiss();
+  closeModal(){
+    return true;
   }
 
 }
