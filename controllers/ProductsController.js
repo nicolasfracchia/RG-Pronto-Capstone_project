@@ -112,10 +112,10 @@ const ProductsController = {
                     name: section.name,
                     products: section.ProductPrices.map((productPrice) => {
                         return {
-                            product: productPrice.Product.name,
+                            name: productPrice.Product.name,
                             image: productPrice.Product.image,
                             category: productPrice.Product.Category.name,
-                            prices: [
+                            ProductPrices: [
                                 {
                                     concept: productPrice.concept,
                                     price: productPrice.price,
@@ -130,12 +130,12 @@ const ProductsController = {
         p.forEach((section) => {
             section.products.forEach((product, index) => {
                 const existingProductIndex = p.findIndex(
-                    (s) => s.name === section.name && s.products.findIndex((p) => p.product === product.product) !== -1
+                    (s) => s.name === section.name && s.products.findIndex((p) => p.product === product.name) !== -1
                 );
 
                 if (existingProductIndex !== -1 && existingProductIndex !== index) {
                     p[existingProductIndex].products
-                        .find((p) => p.product === product.product)
+                        .find((p) => p.product === product.name)
                         .prices.push(...product.prices);
                     // Remove duplicated products
                     section.products.splice(index, 1);
