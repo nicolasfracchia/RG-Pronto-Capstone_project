@@ -38,4 +38,8 @@ export const routes: Routes = [
     path: 'cms/users',
     loadComponent: () => import('./pages/cms/users/users.page').then( m => m.UsersPage)
   },
+  {
+    path: 'cms/products',
+    loadComponent: () => import('./pages/cms/products/products.page').then( m => m.ProductsPage)
+  },
 ];

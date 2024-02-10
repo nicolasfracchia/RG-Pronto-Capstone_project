@@ -11,11 +11,11 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-label>{{ product.product }}</ion-label>
+              <ion-label>{{ product.name }}</ion-label>
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col *ngFor="let price of product.prices">
+            <ion-col *ngFor="let price of product.ProductPrices">
               <ion-text>
                 {{ price.concept ? price.concept + ':' : '' }} ${{ price.price }}
               </ion-text>

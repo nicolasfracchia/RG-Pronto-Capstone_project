@@ -1,8 +1,10 @@
+import { Category } from "./category";
 import { ProductPrice } from "./product-price";
 
 export interface Product {
-    product: string,
+    id:number,
+    name: string,
     image: string,
-    category: string,
-    prices: ProductPrice[]
+    Category: Category,
+    ProductPrices?: ProductPrice[]
 }
