@@ -1,32 +1,15 @@
 <app-header pageTitle="Users"></app-header>
 <ion-content [fullscreen]="true">
 
-  <ion-list>
-    <ion-item *ngFor="let u of users">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-label>{{ u.name }}<br>{{ u.lastName }}</ion-label>
-          </ion-col>
-          <ion-col>
-            <ion-label>{{ u.UserType.type }}</ion-label>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-icon name="eye-outline" (click)="show(u)" color="primary"></ion-icon>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-icon name="create-outline" (click)="formModal(u)" color="warning"></ion-icon>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-icon name="trash-outline" (click)="delete(u)" color="danger"></ion-icon>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let u of users" (click)="showModal(u)">
+    <ion-card-header>
+      <ion-card-subtitle>{{ u.UserType.type }}</ion-card-subtitle>
+      <ion-card-title>{{ u.name }} {{ u.lastName }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
 
   <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-    <ion-fab-button (click)="formModal()">
+    <ion-fab-button (click)="showModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

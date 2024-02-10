@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, ModalController } from '@ionic/angular/standalone';
+import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/interfaces/user';
 import { UserType } from 'src/app/interfaces/user-type';
 import { addIcons } from 'ionicons';
 import { createOutline, eyeOutline, trashOutline, add } from 'ionicons/icons';
-import { Router } from '@angular/router';
 import { ShowModalComponent } from 'src/app/components/cms/users/show-modal/show-modal.component';
 import { FormModalComponent } from 'src/app/components/cms/users/form-modal/form-modal.component';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.scss'],
   standalone: true,
-  imports: [  
+  imports: [IonCardTitle, IonCardSubtitle, IonCardHeader, IonCard,   
     CommonModule,
     HeaderComponent,
     ShowModalComponent,
@@ -43,9 +43,7 @@ export class UsersPage {
 
   constructor(
     private _usersService: UsersService, 
-    private router: Router,
-    private modalController: ModalController,
-    private toastController: ToastController,
+    private _generalService: GeneralService,
     private alertController: AlertController
   ) { 
     this.getUsers();
@@ -60,6 +58,25 @@ export class UsersPage {
         this.users = results;
       });
   }
+
+  async showModal(user:User | undefined = undefined){
+    const component = (user) ? ShowModalComponent : FormModalComponent;
+    const componentProps = {
+      user: user,
+      userTypes: this.userTypes
+    }
+    const modal = await this._generalService.loadModal('userDetails', component, componentProps, 1);
+
+    modal.present();
+
+    const {data} = await modal.onWillDismiss();
+
+    if(data.updated){
+      this.getUsers();
+    }
+  }
+
+  /* * /
 
   async show(user:User){
     const modal = await this.modalController.create({
@@ -135,5 +152,6 @@ export class UsersPage {
       }
     );
   }
+  */
 
 }

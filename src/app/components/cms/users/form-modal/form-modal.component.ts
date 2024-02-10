@@ -7,6 +7,7 @@ import { User } from 'src/app/interfaces/user';
 import { UserType } from 'src/app/interfaces/user-type';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
+import { GeneralService } from 'src/app/services/general.service';
 @Component({
   selector: 'app-form-modal',
   templateUrl: './form-modal.component.html',
@@ -31,15 +32,15 @@ import { UsersService } from 'src/app/services/users.service';
   ]
 })
 export class FormModalComponent  implements OnInit {
-
+  @Input() modalID!:string;
   @Input() user:User | undefined;
-  @Input() refreshList:any;
-  @Input() toast:any;
   @Input() userTypes!:UserType[];
+
   frm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
+    private _generalService: GeneralService,
     private _usersService: UsersService
   ) {
     addIcons({close})
@@ -51,8 +52,6 @@ export class FormModalComponent  implements OnInit {
       email: ['', [Validators.required]],
       type: ['', [Validators.required]]
     });
-    console.log('LLEGA MODAL USERS - FRM:');
-    console.log('USER MODAL: ',this.user);
   }
 
   ngOnInit() {
@@ -63,9 +62,6 @@ export class FormModalComponent  implements OnInit {
       email: this.user?.email,
       type: this.user?.UserType.id
     });
-
-    console.log('LLEGA MODAL USERS - FRM - ONINIT:');
-    console.log('USER MODAL - ONINIT: ',this.user);
   }
 
   onSubmit(){
@@ -81,9 +77,8 @@ export class FormModalComponent  implements OnInit {
   update():any{
     if(this.user?.id){
       this._usersService.updateUser(this.user.id, this.frm.value).subscribe((result:User) => {
-        this.refreshList();
-        this.toast('User updated successfuly!');
-
+        this._generalService.presentToast('User updated successfuly.');
+        this.closeModal({'updated':true});
       });
     }else{
       return false;
@@ -93,14 +88,13 @@ export class FormModalComponent  implements OnInit {
   create(){
     this._usersService.newUser(this.frm.value).subscribe((result:User) => {
       this.frm.reset();
-      this.refreshList();
-      this.toast('User created successfuly!');
-
+      this._generalService.presentToast('User created successfuly.');
+      this.closeModal({'updated':result});
     });
   }
 
-  closeModal(){
-    return true;
+  closeModal(data:any = undefined){
+    this._generalService.closeModal(this.modalID, data);
   }
 
 }
