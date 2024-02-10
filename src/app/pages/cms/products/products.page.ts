@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, ModalController, IonItemSliding, IonItemOption, IonItemOptions, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
+import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, IonItemSliding, IonItemOption, IonItemOptions, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ProductsService } from 'src/app/services/products.service';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -8,11 +8,8 @@ import { Category } from 'src/app/interfaces/category';
 import { Product} from 'src/app/interfaces/product';
 import { addIcons } from 'ionicons';
 import { createOutline, eyeOutline, trashOutline, cashOutline, add } from 'ionicons/icons';
-import { Router } from '@angular/router';
 import { ShowModalComponent } from 'src/app/components/cms/products/show-modal/show-modal.component';
 import { FormModalComponent } from 'src/app/components/cms/products/form-modal/form-modal.component';
-import { PriceFormModalComponent } from 'src/app/components/cms/products/price-form-modal/price-form-modal.component';
-import { AlertController, ToastController } from '@ionic/angular';
 import { Section } from 'src/app/interfaces/section';
 import { SectionsService } from 'src/app/services/sections.service';
 import { GeneralService } from 'src/app/services/general.service';
@@ -53,11 +50,7 @@ export class ProductsPage{
     private _generalService: GeneralService,
     private _productsService: ProductsService, 
     private _categoriesService: CategoriesService,
-    private _sectionsService: SectionsService,
-    private router: Router,
-    private modalController: ModalController,
-    private toastController: ToastController,
-    private alertController: AlertController
+    private _sectionsService: SectionsService
   ) { 
     this.getProducts();
     this.getCategories();
