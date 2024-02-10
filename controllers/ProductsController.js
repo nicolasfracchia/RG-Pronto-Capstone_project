@@ -228,17 +228,15 @@ const ProductsController = {
                 order: parseInt(order) || 10,
             });
 
-            if (prices) {
-                try {
+            
+            try {
+                if (prices) {
                     await ProductsController.addPrices(newProduct.id, prices);
-
-                    const product = await ProductsController.getProductById(newProduct.id);
-                    res.status(200).send(product);
-                } catch (error) {
-                    res.status(500).send({ error: error });
                 }
-            } else {
-                res.status(201).send(newProduct);
+                const product = await ProductsController.getProductById(newProduct.id);
+                res.status(200).send(product);
+            } catch (error) {
+                res.status(500).send({ error: error });
             }
         } catch (error) {
             res.status(500).send({ error: error })
