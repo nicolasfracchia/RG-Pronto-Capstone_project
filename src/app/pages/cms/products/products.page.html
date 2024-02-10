@@ -1,7 +1,7 @@
 <app-header pageTitle="Products"></app-header>
 <ion-content [fullscreen]="true" color="light">
 
-  <ion-card *ngFor="let p of products" (click)="showDetailsModal(p)">
+  <ion-card *ngFor="let p of products" (click)="showModal(p)">
     <ion-card-header>
       <ion-card-subtitle>{{ p.Category.name }}</ion-card-subtitle>
       <ion-card-title>{{ p.name }}</ion-card-title>
@@ -9,7 +9,7 @@
   </ion-card>
 
   <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-    <ion-fab-button (click)="showDetailsModal()">
+    <ion-fab-button (click)="showModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

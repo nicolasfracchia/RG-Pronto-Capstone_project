@@ -74,7 +74,7 @@ export class ProductsPage{
     });
   }
 
-  async showDetailsModal(product:Product | undefined = undefined){
+  async showModal(product:Product | undefined = undefined){
     const component = (product) ? ShowModalComponent : FormModalComponent;
     const componentProps = {
       product: product,
@@ -94,7 +94,7 @@ export class ProductsPage{
     if(data){
       this.getProducts();
       if(data.created){
-        this.showDetailsModal(data.created);
+        this.showModal(data.created);
       }
     }
   }
