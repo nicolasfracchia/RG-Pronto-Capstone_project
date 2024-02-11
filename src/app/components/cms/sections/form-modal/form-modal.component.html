@@ -18,7 +18,9 @@
         <ion-input label="Section name" labelPlacement="floating" placeholder="Section name" formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Section web location" labelPlacement="floating" placeholder="Section web" formControlName="web"></ion-input>
+        <ion-select label="Section web location" placeholder="Section web" labelPlacement="floating" formControlName="web">
+          <ion-select-option *ngFor="let wo of webOptions" [value]="wo">{{ wo }}</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-button expand="block" color="success" (click)="onSubmit()" [disabled]="frm.invalid">Submit</ion-button>
     </ion-list>

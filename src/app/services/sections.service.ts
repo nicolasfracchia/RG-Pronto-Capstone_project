@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment';
 })
 export class SectionsService {
   constructor( private http: HttpClient ) { }
+  getWebOptions(){
+    return ['menu','catering','orders'];
+  }
 
   getSections(){
     return this.http.get<Section[]>(`${environment.apiURL}sections`);

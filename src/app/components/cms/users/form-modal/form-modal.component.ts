@@ -89,7 +89,7 @@ export class FormModalComponent  implements OnInit {
     this._usersService.newUser(this.frm.value).subscribe((result:User) => {
       this.frm.reset();
       this._generalService.presentToast('User created successfuly.');
-      this.closeModal({'updated':result});
+      this.closeModal({'updated':true});
     });
   }
 

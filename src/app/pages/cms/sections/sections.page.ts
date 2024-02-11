@@ -1,22 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, ModalController } from '@ionic/angular/standalone';
+import { IonContent ,IonGrid ,IonList ,IonItem ,IonLabel ,IonRow ,IonCol ,IonIcon, IonModal ,IonFab, IonFabButton, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { SectionsService } from 'src/app/services/sections.service';
 import { Section } from 'src/app/interfaces/section';
 import { addIcons } from 'ionicons';
 import { createOutline, eyeOutline, trashOutline, add } from 'ionicons/icons';
-import { Router } from '@angular/router';
 import { ShowModalComponent } from 'src/app/components/cms/sections/show-modal/show-modal.component';
 import { FormModalComponent } from 'src/app/components/cms/sections/form-modal/form-modal.component';
-import { AlertController, ToastController } from '@ionic/angular';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-sections',
   templateUrl: './sections.page.html',
   styleUrls: ['./sections.page.scss'],
   standalone: true,
-  imports: [  
+  imports: [IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard,   
     CommonModule,
     HeaderComponent,
     ShowModalComponent,
@@ -40,93 +39,32 @@ export class SectionsPage{
 
   constructor(
     private _sectionsService: SectionsService, 
-    private router: Router,
-    private modalController: ModalController,
-    private toastController: ToastController,
-    private alertController: AlertController
+    private _generalService: GeneralService
   ) { 
     this.getSections();
     addIcons({eyeOutline, createOutline, trashOutline, add})
   }
 
   getSections(){
-      this._sectionsService.getSections().subscribe((results) => {
-        this.sections = results;
-      });
-  }
-
-  async show(section:Section){
-    const modal = await this.modalController.create({
-      component: ShowModalComponent,
-      handleBehavior: 'cycle',
-      initialBreakpoint:0.25,
-      breakpoints:[0, 0.25, 0.5, 0.75, 1],
-      componentProps: {
-        section: section
-      },
+    this._sectionsService.getSections().subscribe((results) => {
+      this.sections = results;
     });
-
-    await modal.present();
   }
 
-  async formModal(section:Section | undefined = undefined){
-    const modal = await this.modalController.create({
-      component: FormModalComponent,
-      handleBehavior: 'cycle',
-      initialBreakpoint:0.25,
-      breakpoints:[0, 0.25, 0.5, 0.75, 1],
-      componentProps: {
-        section: section,
-        refreshList: this.getSections.bind(this),
-        toast: this.presentToast.bind(this)
-      },
-    });
+  async showModal(section:Section | undefined = undefined){
+    const component = (section) ? ShowModalComponent : FormModalComponent;
+    const componentProps = {
+      section: section
+    }
+    const modal = await this._generalService.loadModal('sectionDetails', component, componentProps, 1);
 
-    await modal.present();
-  }
+    modal.present();
 
-  async presentToast(message:string, color:string = 'success') {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 1500,
-      position: 'top',
-      color: color
-    });
+    const {data} = await modal.onWillDismiss();
 
-    await toast.present();
-  }
-
-  async delete(section:Section){
-
-    const alert = await this.alertController.create({
-      header: `Are you sure you want to delete this section?`,
-      message: `${section.name}`,
-      buttons: [
-        {text: 'Cancel',role: 'cancel'},
-        {
-          text: 'Delete',
-          cssClass: 'danger',
-          handler: () => {
-            this.deleteConfirmed(section.id);
-          }
-        }
-      ]
-    });
-  
-    await alert.present();
-  }
-
-  deleteConfirmed(id:number){
-    this._sectionsService.deleteSection(id).subscribe(
-      (result:Section) => {
-        this.presentToast('Section deleted successfully');
-        this.getSections();
-      },
-      (error:any) => {
-        console.error('ERROR DELETE:',error.message)
-        this.presentToast("Error deleting the section: " + error.message, 'danger');
-      }
-    );
+    if(data?.updated){
+      this.getSections();
+    }
   }
 
 }

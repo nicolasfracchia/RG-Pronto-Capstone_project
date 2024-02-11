@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar ,IonButtons, IonTitle ,IonIcon, IonButton ,IonContent ,IonList ,IonItem ,IonLabel ,IonDatetimeButton ,IonInput ,IonTextarea ,IonModal } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar ,IonButtons, IonTitle ,IonIcon, IonButton ,IonContent ,IonList ,IonItem ,IonLabel ,IonDatetimeButton ,IonInput ,IonTextarea ,IonModal, IonSelectOption, IonSelect } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
 import { Section } from 'src/app/interfaces/section';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SectionsService } from 'src/app/services/sections.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-form-modal',
@@ -26,18 +27,22 @@ import { SectionsService } from 'src/app/services/sections.service';
     IonInput, 
     IonItem, 
     IonList,
+    IonSelectOption,
+    IonSelect
   ]
 })
 export class FormModalComponent  implements OnInit {
-
+  @Input() modalID!:string;
   @Input() section:Section | undefined;
-  @Input() refreshList:any;
-  @Input() toast:any;
+  
+  webOptions!:string[];
   frm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private _secionsService: SectionsService
+    private _sectionsService: SectionsService,
+    private _generalService: GeneralService,
+    
   ) {
     addIcons({close})
 
@@ -45,6 +50,8 @@ export class FormModalComponent  implements OnInit {
       name: ['', [Validators.required]],
       web: ['', [Validators.required]]
     });
+
+    this.webOptions = this._sectionsService.getWebOptions();
   }
 
   ngOnInit() {
@@ -63,10 +70,9 @@ export class FormModalComponent  implements OnInit {
 
   update():any{
     if(this.section?.id){
-      this._secionsService.updateSection(this.section.id, this.frm.value).subscribe((result:Section) => {
-        this.refreshList();
-        this.toast('Section updated successfuly!');
-
+      this._sectionsService.updateSection(this.section.id, this.frm.value).subscribe((result:Section) => {
+        this._generalService.presentToast('Section updated successfuly.');
+        this.closeModal({'updated':true});
       });
     }else{
       return false;
@@ -74,16 +80,14 @@ export class FormModalComponent  implements OnInit {
   }
 
   create(){
-    this._secionsService.newSection(this.frm.value).subscribe((result:Section) => {
+    this._sectionsService.newSection(this.frm.value).subscribe((result:Section) => {
       this.frm.reset();
-      this.refreshList();
-      this.toast('Section created successfuly!');
-
+      this._generalService.presentToast('Section created successfuly.');
+      this.closeModal({'updated':true});
     });
   }
-
-
-  closeModal(){
-    return true;
+  
+  closeModal(data:any = undefined){
+    this._generalService.closeModal(this.modalID, data);
   }
 }
