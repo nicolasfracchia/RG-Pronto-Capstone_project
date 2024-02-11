@@ -1,29 +1,14 @@
 <app-header pageTitle="Orders Status"></app-header>
-<ion-content [fullscreen]="true" color="light">
+<ion-content [fullscreen]="true">
 
-  <ion-list>
-    <ion-item *ngFor="let s of statuses">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-label>{{ s.name }}</ion-label>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-icon name="eye-outline" (click)="show(s)" color="primary"></ion-icon>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-icon name="create-outline" (click)="formModal(s)" color="warning"></ion-icon>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-icon name="trash-outline" (click)="delete(s)" color="danger"></ion-icon>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let s of statuses" (click)="showModal(s)">
+    <ion-card-header>
+      <ion-card-title>{{ s.name }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
 
   <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-    <ion-fab-button (click)="formModal()">
+    <ion-fab-button (click)="showModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
