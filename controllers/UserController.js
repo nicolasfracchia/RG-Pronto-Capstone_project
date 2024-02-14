@@ -1,8 +1,11 @@
 const { Op, where } = require('sequelize');
 const { Users, UserTypes } = require('../models');
 const UserTypesController = require('./UserTypesController');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const UserController = {
+    // FUNCTIONS
     searchData: {
         attributes: ['id','name','lastName','address','email'],
         include: [{
@@ -41,6 +44,10 @@ const UserController = {
             return {error: error};
         }
     },
+    hashPassword: async (password) => {
+        const hash = await bcrypt.hash(password, 10);
+        return hash;
+    },
 
     // GET
     getAllUsers: async (req, res) => {
@@ -62,7 +69,6 @@ const UserController = {
                 res.status(404).send({error: 'User not found'});
             }
         } catch (error) {
-            console.error('Error:', error);
             res.status(500).send(error);
         }
     },
@@ -90,9 +96,9 @@ const UserController = {
     
     // POST
     newUser: async (req, res) => {
-        const { type, name, lastName, email, address } = req.body;
+        const { password, type, name, lastName, email, address } = req.body;
         
-        if(!type || !name || !lastName || !email || !address){
+        if(!password || !type || !name || !lastName || !email || !address){
             res.status(500).send('Wrong body params');
             return false;
         }
@@ -100,6 +106,7 @@ const UserController = {
         try{
             const userExists = await UserController.searchByFilters({email: email});
             const userTypeExists = await UserTypesController.getUserTypeById(parseInt(type));
+            const hashedPassword = await UserController.hashPassword(password);
 
             if(!userTypeExists){
                 res.status(500).send({error: "The defined user type does not exist."});
@@ -109,7 +116,7 @@ const UserController = {
             if(userExists && userExists.length > 0){
                 res.status(500).send({error: "An user with that email already exists."})
             }else{
-                Users.create({'usertypesId': type, 'name': name, 'lastName': lastName, 'email': email, 'address': address})
+                Users.create({'password':hashedPassword, 'usertypesId': type, 'name': name, 'lastName': lastName, 'email': email, 'address': address})
                 .then(function(results){
                     res.status(200).send(results);
                 })
@@ -181,6 +188,7 @@ const UserController = {
             })
         }
     }
+
 };
 
 module.exports = UserController;
