@@ -5,7 +5,7 @@ const UserController = require('../controllers/UserController');
 
 
 // GET
-router.get('/', verifyToken(1), UserController.getAllUsers);
+router.get('/', verifyToken([1]), UserController.getAllUsers);
 router.get('/:userId', UserController.getUser);
 
 // POST
