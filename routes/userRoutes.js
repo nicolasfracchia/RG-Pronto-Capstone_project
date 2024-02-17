@@ -6,16 +6,16 @@ const UserController = require('../controllers/UserController');
 
 // GET
 router.get('/', verifyToken([1]), UserController.getAllUsers);
-router.get('/:userId', UserController.getUser);
+router.get('/:userId', verifyToken([1, 2, 3]), UserController.getUser);
 
 // POST
-router.post('/', UserController.newUser);
+router.post('/', verifyToken([1, 2]), UserController.newUser);
 router.post('/login', UserController.login);
 
 // PUT
-router.put('/:userId', UserController.updateUser);
+router.put('/:userId', verifyToken([1, 2, 3]), UserController.updateUser);
 
 // DELETE
-router.delete('/:userId', UserController.deleteUser);
+router.delete('/:userId', verifyToken([1, 3]), UserController.deleteUser);
 
 module.exports = router;
