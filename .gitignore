@@ -11,7 +11,7 @@ $RECYCLE.BIN/
 
 *.log
 log.txt
-
+.vscode
 
 /.sourcemaps
 /.versions
@@ -22,6 +22,7 @@ log.txt
 /www
 /platforms
 /plugins
+/android
 
 # Compiled output
 /dist
