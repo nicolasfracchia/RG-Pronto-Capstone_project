@@ -77,7 +77,9 @@ export class ShowModalComponent  implements OnInit {
           text: 'Delete',
           cssClass: 'danger',
           handler: () => {
-            this.deleteConfirmed(user.id);
+            if(user.id){
+              this.deleteConfirmed(user.id);
+            }
           }
         }
       ]
