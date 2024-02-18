@@ -132,19 +132,28 @@ const UserController = {
     login: async (req, res) => {
         const {email, password} = req.body;
 
-        Users.findOne({where: {email}}).then((result) => {
-            if(!result){
+        Users.findOne({where: {email}}).then((user) => {
+            if(!user){
                 res.status(404).send('The email is not registered.');
                 return;
             }
 
-            bcrypt.compare(password, result.password, (err, match) => {
+            bcrypt.compare(password, user.password, (err, match) => {
                 if (!match) {
                     return res.status(401).send('Wrong password');
                 }
 
-                const token = jwt.sign({ userId: result.id, role: result.usertypesId }, process.env.JWT_PRIVATE_KEY, {expiresIn: '1h'});
-                res.status(200).send({token});
+                const token = jwt.sign({ userId: user.id }, process.env.JWT_PRIVATE_KEY, {expiresIn: '1h'});
+                const userData = {
+                    name: user.name,
+                    lastName: user.lastName,
+                    address: user.address,
+                    email: user.email,
+                    role: user.usertypesId,
+                    token: token
+                }
+
+                res.status(200).send(userData);
             });        
         });
     },
