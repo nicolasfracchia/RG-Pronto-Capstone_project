@@ -21,6 +21,9 @@ export class UsersService {
   updateUser(id:number, formData:FormData){
     return this.http.put<User>(`${environment.apiURL}users/${id}`,formData);
   }
+  updateUserProfile(formData:any){
+    return this.http.patch<User>(`${environment.apiURL}users`,formData);
+  }
   newUser(formData: FormData){
     return this.http.post<User>(`${environment.apiURL}users`,formData);
   }
