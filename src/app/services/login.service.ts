@@ -17,7 +17,8 @@ export class LoginService {
     cms_orders_status: [1],
     cms_sections: [1],
     cms_users: [1],
-    cms_products: [1]
+    cms_products: [1],
+    user_profile: [1,2,3]
   }
 
   constructor( 

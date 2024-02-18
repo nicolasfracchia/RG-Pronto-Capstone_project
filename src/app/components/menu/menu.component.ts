@@ -78,6 +78,7 @@ export class MenuComponent implements OnInit {
   getUser(){
     this._loginService.getLoggedUser().subscribe(user => {
       this.user = user;
+      console.log('USER: ',user);
       this.filterCmsPagesByRole();
     })
   }

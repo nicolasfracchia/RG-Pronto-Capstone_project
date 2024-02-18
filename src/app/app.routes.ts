@@ -57,4 +57,10 @@ export const routes: Routes = [
     canActivate: [AuthGuardService],
     data:{ routeName: 'cms_products' }
   },
+  {
+    path: 'user-profile',
+    loadComponent: () => import('./pages/user-profile/user-profile.page').then( m => m.UserProfilePage),
+    canActivate: [AuthGuardService],
+    data:{ routeName: 'user_profile' }
+  },
 ];
