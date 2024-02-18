@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { IonButtons, IonHeader, IonMenuButton, IonTitle, IonToolbar ,IonImg ,IonGrid ,IonRow ,IonCol ,IonText } from '@ionic/angular/standalone';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,8 @@ import { IonButtons, IonHeader, IonMenuButton, IonTitle, IonToolbar ,IonImg ,Ion
   ]
 })
 export class HeaderComponent  implements OnInit {
-  @Input() pageTitle:string = 'asd';
+  @Input() pageTitle:string = 'PRONTO | Pizza, Pasta & Pagnotta';
+  
   constructor() { }
 
   ngOnInit() {}

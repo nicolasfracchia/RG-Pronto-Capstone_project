@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenuToggle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { cart, home, analytics, menu, receipt, send, apps, documents, people, pizza } from 'ionicons/icons';
+import { cart, home, analytics, menu, receipt, send, apps, documents, people, pizza, personCircle, create } from 'ionicons/icons';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/services/login.service';
+import { RouteRoles } from 'src/app/interfaces/route-roles';
 
 @Component({
   selector: 'app-menu',
@@ -22,9 +26,13 @@ import { cart, home, analytics, menu, receipt, send, apps, documents, people, pi
     IonLabel
   ]
 })
-export class MenuComponent {
-  public pageTitle: string = "Tasks list";
-
+export class MenuComponent implements OnInit {
+  private userSubscription!: Subscription;
+  private routeRoles:RouteRoles = this._loginService.getAllRoleAccess();
+  public user:any;
+  public appPagesUser = [
+    { title: 'Login', url: '/login', icon: 'person-circle' },
+  ];
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'In-store Menu', url: '/menu', icon: 'menu' },
@@ -33,15 +41,53 @@ export class MenuComponent {
     { title: 'ORDER HERE', url: '/order', icon: 'cart' },
   ];
   public appPagesCms = [
-    { title: 'Users', url: '/cms/users', icon: 'people' },
-    { title: 'Sections', url: '/cms/sections', icon: 'documents' },
-    { title: 'Categories', url: '/cms/categories', icon: 'apps' },
-    { title: 'Orders status', url: '/cms/orders-status', icon: 'analytics' },
-    { title: 'Products', url: '/cms/products', icon: 'pizza' },
+    { title: 'Users', url: '/cms/users', icon: 'people', roles: this.routeRoles['cms_users'] },
+    { title: 'Sections', url: '/cms/sections', icon: 'documents', roles: this.routeRoles['cms_sections'] },
+    { title: 'Categories', url: '/cms/categories', icon: 'apps', roles: this.routeRoles['cms_categories'] },
+    { title: 'Orders status', url: '/cms/orders-status', icon: 'analytics', roles: this.routeRoles['cms_orders_status'] },
+    { title: 'Products', url: '/cms/products', icon: 'pizza', roles: this.routeRoles['cms_products'] },
   ];
+  public AppPagesCmsByUserRole: any[] = [];
   
-  constructor() {
-    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents, people, pizza });
+  constructor( 
+    private _loginService: LoginService,
+    private storage: StorageMap
+  ) {
+    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents, people, pizza, personCircle, create });
+  }
+
+  setUserSubscription(){
+    this.userSubscription = this.storage.watch('user').subscribe((user) => {
+      this.user = user;
+      this.filterCmsPagesByRole();
+    });
+  }
+
+  ngOnInit(): void {
+    this.setUserSubscription()
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+  }
+
+  onLogOut(){
+    this._loginService.logoutUser();
+  }
+
+  getUser(){
+    this._loginService.getLoggedUser().subscribe(user => {
+      this.user = user;
+      this.filterCmsPagesByRole();
+    })
+  }
+
+  filterCmsPagesByRole(){
+    if(this.user?.role){
+      this.AppPagesCmsByUserRole = this.appPagesCms.filter(p => p.roles.includes(this.user.role));
+    }else{
+      this.AppPagesCmsByUserRole = [];
+    }
   }
 
 }
