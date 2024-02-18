@@ -13,7 +13,10 @@ router.post('/', verifyToken([1, 2]), UserController.newUser);
 router.post('/login', UserController.login);
 
 // PUT
-router.put('/:userId', verifyToken([1, 2, 3]), UserController.updateUser);
+router.put('/:userId', verifyToken([1, 2]), UserController.updateUser);
+
+// PATCH
+router.patch('/', verifyToken([1, 2, 3]), UserController.updateUserProfile);
 
 // DELETE
 router.delete('/:userId', verifyToken([1, 3]), UserController.deleteUser);

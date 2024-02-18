@@ -200,6 +200,39 @@ const UserController = {
         }
     },
 
+    // PATCH
+    updateUserProfile: async (req, res) => {
+        try {
+            const user = await UserController.getUserById(parseInt(req.userId));
+            if(!user){
+                res.status(404).send("The requested user does not exist");
+            }else{
+                if(req.body.name){user.name = req.body.name;}
+                if(req.body.lastName){user.lastName = req.body.lastName;}
+                if(req.body.address){user.address = req.body.address;}
+                if(req.body.email){
+                    try { 
+                        const userExists = await UserController.searchByFilters({email: req.body.email});
+                        if(!userExists || userExists.length === 0){
+                            user.email = req.body.email;
+                        }
+                    }catch(error){
+                        res.status(500).send({error:error});
+                    }
+                }                
+                user.save()
+                .then(function(results){
+                    res.status(200).send(results);
+                })
+                .catch(function(error){
+                    res.status(500).send({error:error});
+                })
+            }
+        } catch(error){
+            res.status(500).send({error: error});
+        }
+    },
+
     // DELETE
     deleteUser: async (req, res) => {
         const user = await UserController.getUserById(req.params.userId);
