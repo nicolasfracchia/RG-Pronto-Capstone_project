@@ -29,27 +29,37 @@
                   <ion-img src="assets/images/logo_big_alpha.webp" alt="PRODUCT NAME"></ion-img>
               </ion-col>
             </ion-row>
-            <ion-row class="priceContainer" *ngFor="let i of arrayNumsForTesting2">
+
+            <ion-row class="priceContainer" *ngFor="let b of arrayNumsForTesting2">
               <ion-col size="8" class="priceConcept">
                 <ion-label>PRICE CONCEPT</ion-label>
               </ion-col>
               <ion-col size="4" class="priceNumber">
                 <ion-label>$999.99</ion-label>
               </ion-col>
+
+
+
               <ion-col size="4" class="priceControls">
-                <ion-button color="success">
+                <ion-button color="success" (click)="removeUnit('product_price_'+i+'-'+b)">
                   <ion-icon name="remove-circle-sharp"></ion-icon>
                 </ion-button>
               </ion-col>
+              
               <ion-col size="4" class="priceControls">
-                <ion-label>x000</ion-label>
+                x<ion-label [id]="'product_price_'+i+'-'+b">0</ion-label>
               </ion-col>
+              
               <ion-col size="4" class="priceControls">
-                <ion-button color="success">
+                <ion-button color="success" (click)="addUnit('product_price_'+i+'-'+b)">
                   <ion-icon name="add-circle-sharp"></ion-icon>
                 </ion-button>
               </ion-col>
+
+
+
             </ion-row>
+
           </ion-grid>
 
         </ion-accordion>
