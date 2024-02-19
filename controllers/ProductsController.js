@@ -1,7 +1,9 @@
-const { Op, where } = require('sequelize');
+const Sequelize = require('sequelize');
+const { QueryTypes, Op, where } = require('sequelize');
 const { Products, Categories, ProductPrices, Sections } = require('../models');
 const CategoryController = require('./CategoryController');
 const SectionsController = require('./SectionsController');
+
 
 
 const ProductsController = {
@@ -82,69 +84,80 @@ const ProductsController = {
         }
 
     },
+    
+    
+    
     searchByWebSection: async (web) => {
-        try {
-            const where = web ? { 'web': web } : {};
-            const products = await Sections.findAll({
-                where: where,
-                include: [{
-                    model: ProductPrices,
-                    include: [{
+        try{
+            const products = await ProductPrices.findAll({
+                include: [
+                    {
                         model: Products,
                         include: [{
                             model: Categories,
+                            attributes: ['name']
                         }]
-                    }]
-                }],
-                order: [['name', 'ASC']],
-            });
+                    },{
+                        model: Sections,
+                        where: { 'web': web }
+                    }
+                ],
+                
+            })
 
-            return ProductsController.formatResultFromWebSection(products);
-
+            return ProductsController.formatResultFromWebSection(products);            
         } catch (error) {
-            console.error('Error getting products by section:', error);
-            return false;
+            return error;
         }
     },
+
+
+
     formatResultFromWebSection: (products) => {
-        const p = products.map((section) => {
-                return {
-                    name: section.name,
-                    products: section.ProductPrices.map((productPrice) => {
-                        return {
-                            name: productPrice.Product.name,
-                            image: productPrice.Product.image,
-                            category: productPrice.Product.Category.name,
-                            ProductPrices: [
-                                {
-                                    concept: productPrice.concept,
-                                    price: productPrice.price,
-                                },
-                            ],
-                        };
-                    }),
+        let productsFormat = [];
+
+        // Group products by section
+        let sections = {};
+        products.forEach(item => {
+            if (!sections[item.sectionId]) {
+                sections[item.sectionId] = {
+                    id: item.sectionId,
+                    name: item.Section.name,
+                    products: []
                 };
-            });
+            }
 
-        // Group prices by produc
-        p.forEach((section) => {
-            section.products.forEach((product, index) => {
-                const existingProductIndex = p.findIndex(
-                    (s) => s.name === section.name && s.products.findIndex((p) => p.product === product.name) !== -1
-                );
-
-                if (existingProductIndex !== -1 && existingProductIndex !== index) {
-                    p[existingProductIndex].products
-                        .find((p) => p.product === product.name)
-                        .prices.push(...product.prices);
-                    // Remove duplicated products
-                    section.products.splice(index, 1);
-                }
-            });
+            // Check if the product already exists in the products array
+            let existingProductIndex = sections[item.sectionId].products.findIndex(product => product.id === item.productId);
+            if (existingProductIndex === -1) {
+                // If the product doesn't exist, add it
+                sections[item.sectionId].products.push({
+                    id: item.productId,
+                    name: item.Product.name,
+                    image: item.Product.image,
+                    order: item.Product.order,
+                    category: item.Product.Category.name,
+                    prices: [{
+                        id: item.id,
+                        concept: item.concept,
+                        price: item.price
+                    }]
+                });
+            } else {
+                // If the product already exists, add its price
+                sections[item.sectionId].products[existingProductIndex].prices.push({
+                    id: item.id,
+                    concept: item.concept,
+                    price: item.price
+                });
+            }
         });
-        return p;
-    },
 
+        // Convert sections object to array
+        productsFormat = Object.values(sections);
+
+        return productsFormat;
+    },
 
     // GET
     getAllProducts: async (req, res) => {
@@ -196,7 +209,7 @@ const ProductsController = {
             if (products) {
                 res.status(200).send(products);
             } else {
-                res.status(404).send({ error: 'Product not found' });
+                res.status(404).send({ error: 'No products found for this web section: '+web });
             }
         } catch (error) {
             console.error('Error:', error);
