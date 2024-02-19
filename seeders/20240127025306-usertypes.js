@@ -7,6 +7,7 @@ module.exports = {
       {id: 1,type: "Admin"},
       {id: 2,type: "Employee"},
       {id: 3,type: "Customer"},
+      {id: 4,type: "Guest"},
     ], {});
   },
 
