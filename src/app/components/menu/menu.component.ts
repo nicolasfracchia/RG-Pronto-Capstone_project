@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenuToggle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { cart, home, analytics, menu, receipt, send, apps, documents, people, pizza, personCircle, create } from 'ionicons/icons';
+import { alarm, cart, home, analytics, menu, receipt, send, apps, documents, people, pizza, personCircle, create } from 'ionicons/icons';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
@@ -44,7 +44,7 @@ export class MenuComponent implements OnInit {
     { title: 'Users', url: '/cms/users', icon: 'people', roles: this.routeRoles['cms_users'] },
     { title: 'Sections', url: '/cms/sections', icon: 'documents', roles: this.routeRoles['cms_sections'] },
     { title: 'Categories', url: '/cms/categories', icon: 'apps', roles: this.routeRoles['cms_categories'] },
-    { title: 'Orders status', url: '/cms/orders-status', icon: 'analytics', roles: this.routeRoles['cms_orders_status'] },
+    { title: 'Orders status', url: '/cms/orders-status', icon: 'alarm', roles: this.routeRoles['cms_orders_status'] },
     { title: 'Products', url: '/cms/products', icon: 'pizza', roles: this.routeRoles['cms_products'] },
   ];
   public AppPagesCmsByUserRole: any[] = [];
@@ -53,7 +53,7 @@ export class MenuComponent implements OnInit {
     private _loginService: LoginService,
     private storage: StorageMap
   ) {
-    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents, people, pizza, personCircle, create });
+    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents, people, pizza, personCircle, create, alarm });
   }
 
   setUserSubscription(){
