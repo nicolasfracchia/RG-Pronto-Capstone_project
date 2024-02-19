@@ -1,0 +1,16 @@
+ion-card{
+    background: var(--ion-color-dark-tint);
+    color: #FFFFFF;
+    ion-card-header ion-card-title{
+        color: #FFFFFF;
+    }
+    ion-list{
+        background: transparent;
+        color: #FFFFFF;
+        ion-item{
+            color: #FFFFFF;
+            --background: transparent;
+        }
+    }
+}
+

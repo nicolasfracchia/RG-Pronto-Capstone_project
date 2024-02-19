@@ -63,4 +63,8 @@ export const routes: Routes = [
     canActivate: [AuthGuardService],
     data:{ routeName: 'user_profile' }
   },
+  {
+    path: 'order',
+    loadComponent: () => import('./pages/order/order.page').then( m => m.OrderPage)
+  },
 ];
