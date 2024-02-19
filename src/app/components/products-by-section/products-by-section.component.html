@@ -15,7 +15,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col *ngFor="let price of product.ProductPrices">
+            <ion-col *ngFor="let price of product.prices">
               <ion-text>
                 {{ price.concept ? price.concept + ':' : '' }} ${{ price.price }}
               </ion-text>
