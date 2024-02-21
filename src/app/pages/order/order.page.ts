@@ -4,6 +4,8 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { IonContent, IonAccordionGroup, IonAccordion, IonLabel, IonItem, IonList, IonCard, IonCardSubtitle, IonCardHeader, IonCardTitle, IonCardContent, IonThumbnail, IonImg, IonGrid, IonRow, IonCol, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { addCircleSharp, removeCircleSharp } from 'ionicons/icons';
+import { ProductsService } from 'src/app/services/products.service';
+import { ProductsBySection } from 'src/app/interfaces/products-by-section';
 
 @Component({
   selector: 'app-order',
@@ -31,16 +33,28 @@ export class OrderPage implements OnInit {
   public arrayNumsForTesting1: number[];
   public arrayNumsForTesting2: number[];
 
+  productsBySection!:ProductsBySection[];
   private updatingUnits:boolean = false;
 
 
-  constructor() {
+  constructor(
+    private _productsService: ProductsService
+  ) {
    this.arrayNumsForTesting1 = Array.from({length: 15}, (_, i) => i);
    this.arrayNumsForTesting2 = Array.from({length: 3}, (_, i) => i);
    addIcons({addCircleSharp, removeCircleSharp})
+   this.getProducts();
   }
 
   ngOnInit() {
+    
+  }
+
+  getProducts(){
+    this._productsService.getProductsByWebSection('orders').subscribe((results) => {
+      this.productsBySection = results;
+      console.log('PRODUCTS ORDER HERE: ',results)
+    });
   }
 
   addUnit(id:string){

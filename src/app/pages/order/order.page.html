@@ -1,121 +1,54 @@
 <app-header pageTitle="ORDER HERE"></app-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  
   <ion-accordion-group>
-    
-    <ion-accordion>
+    <!-- SECTIONS -->
+    <ion-accordion *ngFor="let section of productsBySection">
       <ion-item slot="header">
-        <h2>SPECIALS</h2>
+        <h2>{{ section.name }}</h2>
       </ion-item>
       <ion-accordion-group slot="content" class="productsAccordeonGroup">
-
-
-
-
-
-
-
-        <ion-accordion *ngFor="let i of arrayNumsForTesting1" class="productsAccordeon">
-          
+        <!-- PRODUCTS -->
+        <ion-accordion *ngFor="let product of section.products" class="productsAccordeon">
           <ion-item slot="header">
             <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains" src="assets/images/logo_big_alpha.webp" />
+              <img alt="Silhouette of mountains" src="assets/images/{{ product.image }}" />
             </ion-thumbnail>
-            <b>NOMBRE DEL PRODUCTO</b>
+            <b>{{ product.name }} {{ product.category }}</b>
           </ion-item>
           <ion-grid slot="content">
+            <!-- BIG IMAGE -->
             <ion-row class="imageContainer">
               <ion-col size="auto">
-                  <ion-img src="assets/images/logo_big_alpha.webp" alt="PRODUCT NAME"></ion-img>
+                <ion-img src="assets/images/{{ product.image }}"
+                  alt="{{ product.name }} {{ product.category }}"></ion-img>
               </ion-col>
             </ion-row>
-
-            <ion-row class="priceContainer" *ngFor="let b of arrayNumsForTesting2">
+            <!-- PRICES -->
+            <ion-row class="priceContainer" *ngFor="let price of product.prices">
               <ion-col size="8" class="priceConcept">
-                <ion-label>PRICE CONCEPT</ion-label>
+                <ion-label>{{ price.concept }}</ion-label>
               </ion-col>
               <ion-col size="4" class="priceNumber">
-                <ion-label>$999.99</ion-label>
+                <ion-label>${{ price.price }}</ion-label>
               </ion-col>
-
-
-
+              <!-- PRICE CONTROLS -->
               <ion-col size="4" class="priceControls">
-                <ion-button color="success" (click)="removeUnit('product_price_'+i+'-'+b)">
+                <ion-button color="success" (click)="removeUnit('product_price_'+price.id)">
                   <ion-icon name="remove-circle-sharp"></ion-icon>
                 </ion-button>
               </ion-col>
-              
               <ion-col size="4" class="priceControls">
-                x<ion-label [id]="'product_price_'+i+'-'+b">0</ion-label>
+                x<ion-label [id]="'product_price_'+price.id">0</ion-label>
               </ion-col>
-              
               <ion-col size="4" class="priceControls">
-                <ion-button color="success" (click)="addUnit('product_price_'+i+'-'+b)">
+                <ion-button color="success" (click)="addUnit('product_price_'+price.id)">
                   <ion-icon name="add-circle-sharp"></ion-icon>
                 </ion-button>
               </ion-col>
-
-
-
             </ion-row>
-
           </ion-grid>
-
         </ion-accordion>
-      
-
-
-
-
-
-
       </ion-accordion-group>
     </ion-accordion>
-
-
-
-
-
-
-
-
-
-
-
-
-    <ion-accordion>
-      <ion-item slot="header">
-        <h2>PIZZA</h2>
-      </ion-item>
-      <div class="ion-padding" slot="content">Second Content</div>
-    </ion-accordion>
-    <ion-accordion>
-      <ion-item slot="header">
-        <h2>PAGNOTTA</h2>
-      </ion-item>
-      <div class="ion-padding" slot="content">Third Content</div>
-    </ion-accordion>
-    <ion-accordion>
-      <ion-item slot="header">
-        <h2>SALADS</h2>
-      </ion-item>
-      <div class="ion-padding" slot="content">Third Content</div>
-    </ion-accordion>
   </ion-accordion-group>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </ion-content>
