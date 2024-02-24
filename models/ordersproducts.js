@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    discount: {
-      type: DataTypes.FLOAT,
+    concept: {
+      type: DataTypes.STRING,
       allowNull: false
     }
   }, {

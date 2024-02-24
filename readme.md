@@ -135,9 +135,9 @@ module.exports = {
 # Products
     sequelize model:generate --name Products --attributes name:string,image:string,categoryId:integer,order:integer
 # Orders (This one uses the automatic fields "CreatedAt" and "UpdatedAt")
-    sequelize model:generate --name Orders --attributes userId:integer,statusId:integer
+    sequelize model:generate --name Orders --attributes userId:integer,statusId:integer,points:integer
 # OrdersProducts
-    sequelize model:generate --name OrdersProducts --attributes orderId:integer,productId:integer,unitPrice:float,quantity:integer,discount:float
+    sequelize model:generate --name OrdersProducts --attributes orderId:integer,productId:integer,unitPrice:float,quantity:integer,concept:string
 ```
 </details>
 
