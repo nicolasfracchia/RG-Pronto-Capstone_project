@@ -137,7 +137,7 @@ module.exports = {
 # Orders (This one uses the automatic fields "CreatedAt" and "UpdatedAt")
     sequelize model:generate --name Orders --attributes userId:integer,statusId:integer,points:integer,forDate:dateonly,forTime:time
 # OrdersProducts
-    sequelize model:generate --name OrdersProducts --attributes orderId:integer,productId:integer,unitPrice:float,quantity:integer,concept:string
+    sequelize model:generate --name OrdersProducts --attributes orderId:integer,productPricesId:integer,unitPrice:float,quantity:integer
 ```
 </details>
 
