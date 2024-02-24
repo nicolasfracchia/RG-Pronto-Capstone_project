@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
+    },
+    forDate: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    forTime: {
+      type: DataTypes.TIME,
+      allowNull: false
     }
   }, {
     sequelize,
