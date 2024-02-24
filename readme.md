@@ -7,7 +7,7 @@
 npm init
 npm install express sequelize sequelize-cli
 npx sequelize init
-npm install mariadb
+npm install mariadb@3.0.2 #This version is compatible with removeColumns in migrations
 npm install dotenv #To handle credentials through a .env file
 ```
 </details>
