@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    productId: {
+    productPricesId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -28,10 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    concept: {
-      type: DataTypes.STRING,
       allowNull: false
     }
   }, {
