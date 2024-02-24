@@ -4,6 +4,7 @@ const ordersStatusRoutes = require('./ordersStatusRoutes');
 const userTypesRoutes = require('./userTypesRoutes');
 const sectionsRoutes = require('./sectionsRoutes');
 const productsRoutes = require('./productsRoutes');
+const ordersRoutes = require('./ordersRoutes');
 
 module.exports = {
   userRoutes,
@@ -11,5 +12,6 @@ module.exports = {
   ordersStatusRoutes,
   userTypesRoutes,
   sectionsRoutes,
-  productsRoutes
+  productsRoutes,
+  ordersRoutes
 };

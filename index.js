@@ -32,3 +32,4 @@ app.use('/ordersstatus', routes.ordersStatusRoutes);
 app.use('/userstypes', routes.userTypesRoutes);
 app.use('/sections', routes.sectionsRoutes);
 app.use('/products', routes.productsRoutes);
+app.use('/orders', routes.ordersRoutes);

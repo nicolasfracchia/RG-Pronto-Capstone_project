@@ -84,6 +84,18 @@ const ProductsController = {
         }
 
     },
+    getProductPriceById: async (ID) => {
+        const productPriceId = parseInt(ID);
+
+        if (isNaN(productPriceId)) { return false; }
+
+        try {
+            const results = await ProductPrices.findByPk(productPriceId);
+            return (!results) ? false : results;
+        } catch (error) {
+            return { error: error };
+        }
+    },
     
     
     
