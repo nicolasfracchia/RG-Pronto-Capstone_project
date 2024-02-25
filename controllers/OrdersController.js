@@ -125,7 +125,6 @@ const OrdersController = {
         }
 
         try {
-            console.log('WHERE: ', where)
             const orders = await OrdersController.getAllFullOrders(where);
             res.status(200).send(orders);
         } catch (error) {
