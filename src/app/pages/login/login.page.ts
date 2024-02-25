@@ -4,7 +4,7 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCon
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormControl, FormsModule } from '@angular/forms';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { GeneralService } from 'src/app/services/general.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -34,28 +34,34 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginPage implements OnInit {
   frm: FormGroup;
+  returnPage:string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private _loginService: LoginService,
     private _generalService: GeneralService,
     private storage: StorageMap
   ) {
+    
     this.frm = formBuilder.group({
       email: ['nfracchia.uoc@hotmail.com', [Validators.required, Validators.email]],
       password: ['12321', Validators.required]
     });
+    
+    this.returnPage = '/'+this.route.snapshot.paramMap.get('returnPage') || '/home';
   }
 
   ngOnInit() { }
+
 
   onSubmit(){
     this._loginService.loginUser(this.frm.value).subscribe({
       next: (user) => {
         this.storage.set('user', user).subscribe(() => {});
         this._generalService.presentToast('Login Successful.');
-        this.router.navigate(['/home']);
+        this.router.navigate([this.returnPage]);
       },
       error: (err) => {
         this._generalService.presentToast(err.error,'danger');

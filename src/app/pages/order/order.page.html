@@ -1,14 +1,14 @@
 <app-header pageTitle="ORDER HERE"></app-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-accordion-group>
+  <ion-accordion-group id="mainAccordionGroup">
     <!-- SECTIONS -->
-    <ion-accordion *ngFor="let section of productsBySection">
+    <ion-accordion *ngFor="let section of productsBySection" [value]="'accordion_section_'+section.id">
       <ion-item slot="header">
         <h2>{{ section.name }}</h2>
       </ion-item>
-      <ion-accordion-group slot="content" class="productsAccordeonGroup">
+      <ion-accordion-group slot="content" class="productsAccordeonGroup" [id]="'accordionGroup_'+section.id">
         <!-- PRODUCTS -->
-        <ion-accordion *ngFor="let product of section.products" class="productsAccordeon">
+        <ion-accordion *ngFor="let product of section.products" class="productsAccordeon" [value]="'accordion_product_'+product.id">
           <ion-item slot="header">
             <ion-thumbnail slot="start">
               <img alt="Silhouette of mountains" src="assets/images/{{ product.image }}" />
@@ -24,7 +24,7 @@
               </ion-col>
             </ion-row>
             <!-- PRICES -->
-            <ion-row class="priceContainer" *ngFor="let price of product.prices">
+            <ion-row class="priceContainer" *ngFor="let price of product.prices" [id]="'row_productPrice_'+price.id">
               <ion-col size="8" class="priceConcept">
                 <ion-label>{{ price.concept }}</ion-label>
               </ion-col>
@@ -33,15 +33,31 @@
               </ion-col>
               <!-- PRICE CONTROLS -->
               <ion-col size="4" class="priceControls">
-                <ion-button color="success" (click)="removeUnit('product_price_'+price.id)">
+                <ion-button color="success" 
+                  (click)="updateUnits(
+                    section.id,
+                    product.id,
+                    price.id, 
+                    section.name+' - '+product.name+' '+product.category+' ('+price.concept+')',
+                    price.price,
+                    'remove'
+                  )">
                   <ion-icon name="remove-circle-sharp"></ion-icon>
                 </ion-button>
               </ion-col>
               <ion-col size="4" class="priceControls">
-                x<ion-label [id]="'product_price_'+price.id">0</ion-label>
+                x<ion-label [id]="'product_price_'+price.id" class="product_price_quantity">0</ion-label>
               </ion-col>
               <ion-col size="4" class="priceControls">
-                <ion-button color="success" (click)="addUnit('product_price_'+price.id)">
+                <ion-button color="success" 
+                  (click)="updateUnits(
+                    section.id,
+                    product.id,
+                    price.id, 
+                    section.name+' - '+product.name+' '+product.category+' ('+price.concept+')',
+                    price.price,
+                    'add'
+                  )">
                   <ion-icon name="add-circle-sharp"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -51,4 +67,12 @@
       </ion-accordion-group>
     </ion-accordion>
   </ion-accordion-group>
+
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom" (click)="showCart()" id="badge-container" *ngIf="this.badgeCounter > 0">
+    <ion-badge color="danger">{{ this.badgeCounter }}</ion-badge>
+    <ion-fab-button>      
+      <ion-icon name="cart-sharp"></ion-icon>
+    </ion-fab-button>
+    
+  </ion-fab>
 </ion-content>

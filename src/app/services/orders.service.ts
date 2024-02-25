@@ -2,12 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderStatus } from '../interfaces/order-status';
 import { environment } from 'src/environments/environment';
+import { NewOrder } from '../interfaces/new-order';
+import { Order } from '../interfaces/order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
   constructor( private http: HttpClient ) { }
+
+  // ORDERS
+  newOrder(order:NewOrder){
+    return this.http.post<Order>(`${environment.apiURL}orders`,order);
+  }
 
   // ORDERS STATUS CRUD
   getAllOrdersStatus(){
