@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { MenuComponent } from 'src/app/components/home/menu/menu.component'; 
+import { LoginComponent } from 'src/app/components/home/login/login.component'; 
 import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
@@ -13,7 +14,8 @@ import { IonContent } from '@ionic/angular/standalone';
     IonContent,
     CommonModule, 
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    LoginComponent
   ]
 })
 export class HomePage implements OnInit {
