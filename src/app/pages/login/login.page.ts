@@ -50,7 +50,8 @@ export class LoginPage implements OnInit {
       password: ['12321', Validators.required]
     });
     
-    this.returnPage = '/'+this.route.snapshot.paramMap.get('returnPage') || '/home';
+    const rp = this.route.snapshot.paramMap.get('returnPage');
+    this.returnPage = (rp) ? '/'+rp : '/home';
   }
 
   ngOnInit() { }
