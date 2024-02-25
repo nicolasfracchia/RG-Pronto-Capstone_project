@@ -37,6 +37,10 @@ const OrdersController = {
                     }
                 ]
             }
+        ],
+        order: [
+            ['forDate', 'DESC'],
+            ['forTime', 'DESC'],
         ]
     },
     getAllFullOrders: async (where = {}) => {
@@ -108,7 +112,8 @@ const OrdersController = {
     getOrdersByType: async (req, res) => {
         const userRole = req.userRole;
         const userId = req.userId;
-        const type = req.params.type | 'all';
+        const type = (req.params.type) ? req.params.type : 'all';
+        
         let where = (userRole === 3) ? {userId: userId} : {};
         
         if(!userRole || !userId){
