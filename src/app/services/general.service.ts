@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular/standalone';
+import { ModalController, ModalOptions, ToastController } from '@ionic/angular/standalone';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +11,20 @@ export class GeneralService {
     private toastController: ToastController
   ) { }
 
-  async loadModal(modalID:string, component:any, componentProps:any = {}, initialBreakpoint:number = 0.5){
-    const modal = await this.modalController.create({
+  async loadModal(modalID:string, component:any, componentProps:any = {}, initialBreakpoint:number = 0.5, cssClass:string = ''){
+    let modalProperties:ModalOptions = {
       id: modalID,
       component: component,
       handleBehavior: 'cycle',
-      initialBreakpoint:initialBreakpoint,
       breakpoints:[0, 0.25, 0.5, 0.75, 1],
       componentProps: {...componentProps,modalID:modalID},
-    });
+      cssClass: cssClass
+    };
+    if(initialBreakpoint !== 0){
+      modalProperties.initialBreakpoint = initialBreakpoint;
+    }
+
+    const modal = await this.modalController.create(modalProperties);
 
     return modal;
   }

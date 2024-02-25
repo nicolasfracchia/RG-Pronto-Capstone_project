@@ -39,7 +39,6 @@ export class LoggedUserComponent  implements OnInit {
       if(orders.length > 0){
         this.pendingOrders = orders;
         this.subtitle = "Your pending orders:";
-        console.log('PENDING ORDERS: ', this.pendingOrders)
       }
     })
   }

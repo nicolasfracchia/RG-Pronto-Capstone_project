@@ -39,3 +39,11 @@ ion-content{
     --background: url('/assets/images/bkgs/bkg-500.webp') no-repeat center center / cover;
     
 }
+
+/* DIALOG MODALS */
+ion-modal.modal-dialog{
+    --width: 85vw;
+    --height: 85vh;
+    --border-radius: 6px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
