@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from 'src/app/components/header/header.component';
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonRow ,IonText ,IonItem } from '@ionic/angular/standalone';
+import { MenuComponent } from 'src/app/components/home/menu/menu.component'; 
+import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
@@ -13,14 +13,7 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, 
     IonContent,
     CommonModule, 
     HeaderComponent,
-
-    IonCard,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCardHeader,
-    IonCardContent,
-    IonText,
-    IonItem
+    MenuComponent
   ]
 })
 export class HomePage implements OnInit {
