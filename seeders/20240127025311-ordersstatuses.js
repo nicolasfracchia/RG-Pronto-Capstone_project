@@ -9,6 +9,7 @@ module.exports = {
       {id: 3,name: "In progress"},
       {id: 4,name: "On the way"},
       {id: 5,name: "Delivered"},
+      {id: 6,name: "Cancelled"},
     ], {});
   },
 
