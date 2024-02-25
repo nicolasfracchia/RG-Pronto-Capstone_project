@@ -39,6 +39,16 @@ const OrdersController = {
             }
         ]
     },
+    getAllFullOrders: async (where = {}) => {
+        let searchData = { ...OrdersController.searchData };
+        searchData.where = where;
+        try {
+            const results = await Orders.findAll(searchData);
+            return (!results) ? false : results;
+        } catch (error) {
+            return { error: error };
+        }
+    },
     getFullOrderById: async (ID) => {
         const orderId = parseInt(ID);
 
@@ -92,12 +102,39 @@ const OrdersController = {
         const addProducts = await OrdersProducts.bulkCreate(productsWithOrderId);
         return addProducts;
     },
+    
 
     // GET
+    getOrdersByType: async (req, res) => {
+        const userRole = req.userRole;
+        const userId = req.userId;
+        const type = req.params.type | 'all';
+        let where = (userRole === 3) ? {userId: userId} : {};
+        
+        if(!userRole || !userId){
+            res.status(500).send('Access denied');
+        }
+
+        switch(type){
+            case 'pending':
+                where.ordersstatusesId = {[Op.in]: [1, 2, 3, 4]};
+                break;
+            default:
+                where.ordersstatusesId = {[Op.in]: [1, 2, 3, 4, 5, 6]};
+                break;
+        }
+
+        try {
+            console.log('WHERE: ', where)
+            const orders = await OrdersController.getAllFullOrders(where);
+            res.status(200).send(orders);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    },
     
 
     // POST
-    
     newOrder: async (req, res) => {
         const userRole = req.userRole;
         const userId = req.userId;

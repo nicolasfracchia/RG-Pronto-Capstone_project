@@ -4,7 +4,7 @@ const verifyToken = require('../middlewares/authMiddleware');
 const OrdersController = require('../controllers/OrdersController');
 
 // GET
-//router.get('/', OrdersStatusController.getAllOrdersStatus);
+router.get('/type/:type', verifyToken([1,2,3]), OrdersController.getOrdersByType);
 //router.get('/:osId', OrdersStatusController.getOrdersStatus);
 
 // POST
