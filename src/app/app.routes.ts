@@ -27,6 +27,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
   {
+    path: 'order-history',
+    loadComponent: () => import('./pages/order-history/order-history.page').then( m => m.OrderHistoryPage),
+    canActivate: [AuthGuardService],
+    data:{ routeName: 'order_history' }
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

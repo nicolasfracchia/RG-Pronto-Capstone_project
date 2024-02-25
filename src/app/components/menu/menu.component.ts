@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenuToggle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { alarm, cart, home, analytics, menu, receipt, send, apps, documents, people, pizza, personCircle, create } from 'ionicons/icons';
+import { alarm, cart, home, analytics, menu, receipt, send, apps, documents, people, pizza, personCircle, create, fastFood } from 'ionicons/icons';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
@@ -53,7 +53,7 @@ export class MenuComponent implements OnInit {
     private _loginService: LoginService,
     private storage: StorageMap
   ) {
-    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents, people, pizza, personCircle, create, alarm });
+    addIcons({ home, menu, receipt, send, cart, apps, analytics, documents, people, pizza, personCircle, create, alarm, fastFood });
   }
 
   setUserSubscription(){
