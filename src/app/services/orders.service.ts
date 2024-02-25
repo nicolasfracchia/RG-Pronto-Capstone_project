@@ -12,6 +12,9 @@ export class OrdersService {
   constructor( private http: HttpClient ) { }
 
   // ORDERS
+  getOrdersByType(type:string = 'all'){
+    return this.http.get<Order[]>(`${environment.apiURL}orders/type/${type}`);
+  }
   newOrder(order:NewOrder){
     return this.http.post<Order>(`${environment.apiURL}orders`,order);
   }
