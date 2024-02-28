@@ -9,6 +9,7 @@ import { createOutline } from 'ionicons/icons';
 import { GeneralService } from 'src/app/services/general.service';
 import { UsersService } from 'src/app/services/users.service';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { LoggedUser } from 'src/app/interfaces/logged-user';
 
 @Component({
   selector: 'app-user-profile',
@@ -31,7 +32,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
   ]
 })
 export class UserProfilePage implements OnInit {
-  public user!:User;
+  public user!:LoggedUser;
   private editingField!:string;
   private editingLabel!:string;
 
@@ -52,7 +53,7 @@ export class UserProfilePage implements OnInit {
 
   getUser(){
     this._loginService.getLoggedUser().subscribe(user => {
-      this.user = user;
+      this.user = user as LoggedUser;
     })
   }
 

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Observable, map, switchMap } from 'rxjs';
 import { RouteRoles } from '../interfaces/route-roles';
+import { LoggedUser } from '../interfaces/logged-user';
+
 
 
 @Injectable({
@@ -32,8 +34,41 @@ export class LoginService {
   loginUser(formData: any){
     return this.http.post<any>(`${environment.apiURL}users/login`, formData);
   }
-  getLoggedUser(): Observable<any>{
-    return this.storage.get('user');
+  getLoggedUser(): Observable<LoggedUser | false> {
+    return this.storage.get('user').pipe(
+      map(_user => {
+        if (_user) {
+          
+          const user:LoggedUser = _user as LoggedUser;
+          const token = user.token;
+          
+          if(!token){ 
+            this.logoutUser();
+            return false; 
+          }
+
+          try {
+            const tokenParts = token.split('.');
+            const payload = JSON.parse(atob(tokenParts[1]));
+            const currentTime = Date.now() / 1000;
+
+            if(payload.exp > currentTime){
+              return user;
+            }else{
+              this.logoutUser();
+              return false;
+            }
+
+          } catch (error) {
+            this.logoutUser();
+            return false;
+          }
+        } else {
+          this.logoutUser();
+          return false;
+        }
+      })
+    );
   }
   getToken(){
     this.storage.get('user').subscribe({
@@ -55,6 +90,25 @@ export class LoginService {
   getAllRoleAccess(): RouteRoles{
     return this.routesRoles;
   }
+  validateToken(token:string){
+    if (!token) {
+      return false; // Token is not present
+    }
+  
+    try {
+      const tokenParts = token.split('.');
+      const payload = JSON.parse(atob(tokenParts[1]));
+      const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
+  
+      if (payload.exp < currentTime) {
+        return false; // Token is expired
+      }
+  
+      return true; // Token is valid
+    } catch (error) {
+      return false; // Invalid token format or decoding error
+    }
+  };
   
 
 }

@@ -42,7 +42,7 @@ export class HomePage implements OnInit {
   getLoggedUser(){
     this._loginService.getLoggedUser().subscribe(user => {
       if(user){
-        this.loggedUser = user;
+        this.loggedUser = user as LoggedUser;
       }
     })
   }

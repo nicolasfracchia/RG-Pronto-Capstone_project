@@ -60,7 +60,7 @@ export class CartComponent  implements OnInit {
 
   getLoggedUser(){
     this._loginService.getLoggedUser().subscribe(user => {
-      this.user = user;
+      this.user = user as LoggedUser;
     });
   }
 
