@@ -38,10 +38,8 @@ export class LoginService {
     return this.storage.get('user').pipe(
       map(_user => {
         if (_user) {
-          
           const user:LoggedUser = _user as LoggedUser;
           const token = user.token;
-          
           if(!token){ 
             this.logoutUser();
             return false; 
@@ -51,7 +49,6 @@ export class LoginService {
             const tokenParts = token.split('.');
             const payload = JSON.parse(atob(tokenParts[1]));
             const currentTime = Date.now() / 1000;
-
             if(payload.exp > currentTime){
               return user;
             }else{
@@ -64,7 +61,6 @@ export class LoginService {
             return false;
           }
         } else {
-          this.logoutUser();
           return false;
         }
       })
@@ -92,21 +88,21 @@ export class LoginService {
   }
   validateToken(token:string){
     if (!token) {
-      return false; // Token is not present
+      return false; 
     }
   
     try {
       const tokenParts = token.split('.');
       const payload = JSON.parse(atob(tokenParts[1]));
-      const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
+      const currentTime = Date.now() / 1000;
   
       if (payload.exp < currentTime) {
-        return false; // Token is expired
+        return false; // Token expired
       }
   
-      return true; // Token is valid
+      return true; 
     } catch (error) {
-      return false; // Invalid token format or decoding error
+      return false; // Token invalid
     }
   };
   
