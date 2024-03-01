@@ -30,7 +30,6 @@ export class MenuPage {
       this._productsService.getProductsByWebSection(web).subscribe((results) => {
         this.webSections = results;
       });
-    
   }
 
 }

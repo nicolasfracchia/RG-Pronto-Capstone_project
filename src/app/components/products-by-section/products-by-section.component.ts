@@ -30,8 +30,6 @@ export class ProductsBySectionComponent implements OnInit{
     
   }
 
-  ngOnInit() {
-    console.log('SECTION:',this.section);
-  }
+  ngOnInit() { }
 
 }
