@@ -4,8 +4,6 @@ const { Products, Categories, ProductPrices, Sections } = require('../models');
 const CategoryController = require('./CategoryController');
 const SectionsController = require('./SectionsController');
 
-
-
 const ProductsController = {
     searchData: {
         attributes: ['id', 'name', 'image', 'order'],
@@ -96,9 +94,6 @@ const ProductsController = {
             return { error: error };
         }
     },
-    
-    
-    
     searchByWebSection: async (web) => {
         try{
             const products = await ProductPrices.findAll({
@@ -122,9 +117,6 @@ const ProductsController = {
             return error;
         }
     },
-
-
-
     formatResultFromWebSection: (products) => {
         let productsFormat = [];
 
@@ -231,7 +223,7 @@ const ProductsController = {
 
     // POST
     newProduct: async (req, res) => {
-        const { name, categoryId, image, order, prices } = req.body;
+        const { name, categoryId, order, prices } = req.body;
 
         if (!name || !categoryId) {
             res.status(500).send('Wrong body params');
@@ -247,9 +239,9 @@ const ProductsController = {
             }
 
             const newProduct = await Products.create({
-                'name': name,
-                'categoryId': categoryId,
-                image: image || 'default.png',
+                name: name,
+                categoryId: categoryId,
+                image: req.file.filename || 'default.png',
                 order: parseInt(order) || 10,
             });
 
