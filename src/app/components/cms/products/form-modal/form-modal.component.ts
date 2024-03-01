@@ -39,6 +39,7 @@ export class FormModalComponent  implements OnInit {
   @Input() categories!:Category[];
   
   frm: FormGroup;
+  product_image!: File;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,11 +64,20 @@ export class FormModalComponent  implements OnInit {
   }
 
   onSubmit(){
-    const formData = this.frm.value;
+    let formData = new FormData();
+
+    if(this.product_image){
+      formData.append('product_image', this.product_image)
+    }
+
+    for(let key in this.frm.value){
+      formData.append(key, this.frm.value[key]);
+    }
+
     if(this.product){
       this.update();
     }else{
-      this.create();
+      this.create(formData);
     }
     return true;
   }
@@ -83,8 +93,8 @@ export class FormModalComponent  implements OnInit {
     }
   }
 
-  create(){
-    this._productsService.newProduct(this.frm.value).subscribe((result:Product) => {
+  create(formData:FormData){
+    this._productsService.newProduct(formData).subscribe((result:Product) => {
       this.frm.reset();
       this._generalService.presentToast('Product created successfuly.');
       this.closeModal({'created':result});
@@ -93,6 +103,10 @@ export class FormModalComponent  implements OnInit {
 
   closeModal(data:any = undefined){
     this._generalService.closeModal(this.modalID, data);
+  }
+
+  onFileSelected(event: any) {
+    this.product_image = event.target.files[0];
   }
 
   
