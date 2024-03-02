@@ -77,4 +77,8 @@ export const routes: Routes = [
     path: 'order',
     loadComponent: () => import('./pages/order/order.page').then( m => m.OrderPage)
   },
+  {
+    path: 'new-user',
+    loadComponent: () => import('./pages/new-user/new-user.page').then( m => m.NewUserPage)
+  },
 ];

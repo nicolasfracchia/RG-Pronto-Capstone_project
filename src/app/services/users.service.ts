@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserType } from '../interfaces/user-type';
 import { User} from '../interfaces/user';
 import { environment } from 'src/environments/environment';
+import { UserInfo } from '../interfaces/user-info';
 
 
 @Injectable({
@@ -29,6 +30,9 @@ export class UsersService {
   }
   deleteUser(id:number){
     return this.http.delete<User>(`${environment.apiURL}users/${id}`);
+  }
+  newCustomer(formData: UserInfo){
+    return this.http.post<User>(`${environment.apiURL}users/customer`,formData);
   }
 
   // User Types
