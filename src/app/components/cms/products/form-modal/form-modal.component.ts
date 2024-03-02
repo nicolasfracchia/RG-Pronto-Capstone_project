@@ -75,16 +75,16 @@ export class FormModalComponent  implements OnInit {
     }
 
     if(this.product){
-      this.update();
+      this.update(formData);
     }else{
       this.create(formData);
     }
     return true;
   }
 
-  update():any{
+  update(formData:FormData):any{
     if(this.product?.id){
-      this._productsService.updateProduct(this.product.id, this.frm.value).subscribe((result:Product) => {
+      this._productsService.updateProduct(this.product.id, formData).subscribe((result:Product) => {
         this._generalService.presentToast('Product updated successfuly.');
         this.closeModal({'updated':true});
       });
