@@ -6,7 +6,8 @@
     <ion-list>
       <ion-item *ngFor="let product of section.products">
         <ion-thumbnail slot="start">
-          <img alt="Silhouette of mountains" src="assets/images/default.png" />
+          <img alt="{{ product.name }}" src="assets/images/default.png" *ngIf="product.image === 'default.png'" />
+          <img alt="{{ product.name }}" src="{{ foodImagesURL }}{{ product.image }}" *ngIf="product.image !== 'default.png'" />
         </ion-thumbnail>
         <ion-grid>
           <ion-row>
