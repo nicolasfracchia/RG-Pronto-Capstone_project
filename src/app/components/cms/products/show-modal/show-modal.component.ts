@@ -11,6 +11,7 @@ import { Category } from 'src/app/interfaces/category';
 import { Section } from 'src/app/interfaces/section';
 import { GeneralService } from 'src/app/services/general.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-show-modal',
@@ -47,6 +48,8 @@ export class ShowModalComponent  implements OnInit {
   @Input() sections!:Section[];
 
   updated:boolean = false;
+  showImage!:string;
+  foodImagesURL:string = environment.food_images_URL;
 
   constructor(
     private _generalService: GeneralService,
@@ -56,7 +59,9 @@ export class ShowModalComponent  implements OnInit {
     addIcons({close, createOutline, trashOutline})
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getImage();
+  }
 
   closeModal(){
     this._generalService.closeModal(this.modalID, {'updated':this.updated});
@@ -65,7 +70,11 @@ export class ShowModalComponent  implements OnInit {
   getProduct(){
     this._productsService.getProduct(this.product.id).subscribe((results:Product) => {
       this.product = results;
+      this.getImage();
     });
+  }
+  getImage(){
+    this.showImage = (this.product.image === 'default.png') ? environment.default_food_image_URL : this.foodImagesURL + this.product.image;
   }
 
   // PRODUCTS CRUD
