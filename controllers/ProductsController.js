@@ -241,11 +241,10 @@ const ProductsController = {
             const newProduct = await Products.create({
                 name: name,
                 categoryId: categoryId,
-                image: req.file.filename || 'default.png',
+                image: (req.file) ? req.file.filename : 'default.png',
                 order: parseInt(order) || 10,
             });
 
-            
             try {
                 if (prices) {
                     await ProductsController.addPrices(newProduct.id, prices);
@@ -297,9 +296,10 @@ const ProductsController = {
             if (!product) {
                 res.status(404).send("The requested product does not exist");
             } else {
+                console.log('FILE EDIT: ', req.file)
                 product.name = req.body.name || product.name;
                 product.order = req.body.order || product.order;
-                product.image = req.body.image || product.image;
+                product.image = (req.file) ? req.file.filename : product.image;
                 if (req.body.categoryId) {
                     const category = parseInt(req.body.categoryId);
                     const categoryExists = await CategoryController.getCategoryById(category);

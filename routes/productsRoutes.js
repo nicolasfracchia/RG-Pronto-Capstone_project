@@ -10,7 +10,8 @@ var storage = multer.diskStorage({
       cb(null, './public/images/products')
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname)
+      const ext = file.originalname.split('.').pop();
+      cb(null, Date.now() + '.' + ext);
     }
 });
 var upload = multer({ storage: storage });
@@ -26,7 +27,7 @@ router.post('/prices/:productId', verifyToken([1, 2]), ProductsController.addPri
 
 // PUT
 router.put('/prices/:priceId', verifyToken([1, 2]), ProductsController.updatePrice);
-router.put('/:productId', verifyToken([1, 2]), ProductsController.updateProduct);
+router.put('/:productId', [verifyToken([1, 2]), upload.single('product_image')], ProductsController.updateProduct);
 
 // DELETE
 router.delete('/prices/:priceId', verifyToken([1, 2]), ProductsController.deleteProductPrice);
