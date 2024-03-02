@@ -11,7 +11,8 @@
         <ion-accordion *ngFor="let product of section.products" class="productsAccordeon" [value]="'accordion_product_'+product.id">
           <ion-item slot="header">
             <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains" src="assets/images/{{ product.image }}" />
+              <img alt="{{ product.name }} {{ product.category }}" src="{{ defaultImageURL }}"  *ngIf="product.image === 'default.png'" />
+              <img alt="{{ product.name }} {{ product.category }}" src="{{ foodImagesURL }}{{ product.image }}"  *ngIf="product.image !== 'default.png'" />
             </ion-thumbnail>
             <b>{{ product.name }} {{ product.category }}</b>
           </ion-item>
@@ -19,8 +20,8 @@
             <!-- BIG IMAGE -->
             <ion-row class="imageContainer">
               <ion-col size="auto">
-                <ion-img src="assets/images/{{ product.image }}"
-                  alt="{{ product.name }} {{ product.category }}"></ion-img>
+                <ion-img src="{{ defaultImageURL }}" alt="{{ product.name }} {{ product.category }}" *ngIf="product.image === 'default.png'"></ion-img>
+                <ion-img src="{{ foodImagesURL }}{{ product.image }}" alt="{{ product.name }} {{ product.category }}" *ngIf="product.image !== 'default.png'"></ion-img>
               </ion-col>
             </ion-row>
             <!-- PRICES -->

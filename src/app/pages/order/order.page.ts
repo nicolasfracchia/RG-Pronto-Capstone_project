@@ -12,6 +12,7 @@ import { GeneralService } from 'src/app/services/general.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { Order } from 'src/app/interfaces/order';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order',
@@ -41,6 +42,9 @@ export class OrderPage implements OnInit {
   private productsInCart: Record<string, ProductInCart> = {};
   public badgeCounter:number = 0;
   public totalPrice:number = 0;
+
+  public foodImagesURL:string = environment.food_images_URL;
+  public defaultImageURL:string = environment.default_food_image_URL;
 
 
   constructor(
