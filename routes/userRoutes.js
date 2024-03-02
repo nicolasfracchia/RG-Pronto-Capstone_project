@@ -10,6 +10,7 @@ router.get('/:userId', verifyToken([1, 2, 3]), UserController.getUser);
 
 // POST
 router.post('/', verifyToken([1, 2]), UserController.newUser);
+router.post('/customer', UserController.newCustomer);
 router.post('/login', UserController.login);
 
 // PUT

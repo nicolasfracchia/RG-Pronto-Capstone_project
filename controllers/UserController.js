@@ -129,6 +129,46 @@ const UserController = {
             res.status(500).send({error:error})
         }
     },
+    newCustomer: async (req, res) => {
+
+        const { password, name, lastName, email, address } = req.body;
+
+        if(!password || !name || !lastName || !email || !address){
+            res.status(500).send('Wrong body params');
+            return false;
+        }
+
+        try{
+            const userExists = await UserController.searchByFilters({email: email});
+            const hashedPassword = await UserController.hashPassword(password);
+
+            if(userExists && userExists.length > 0){
+                res.status(500).send("An user with that email already exists.")
+            }else{
+                Users.create({'password':hashedPassword, 'usertypesId': 3, 'name': name, 'lastName': lastName, 'email': email, 'address': address})
+                .then(function(customer){
+                    const token = jwt.sign({ userId: customer.id }, process.env.JWT_PRIVATE_KEY, {expiresIn: '1h'});
+                    const userData = {
+                        name: customer.name,
+                        lastName: customer.lastName,
+                        address: customer.address,
+                        email: customer.email,
+                        role: customer.usertypesId,
+                        token: token
+                    }
+
+                    res.status(200).send(userData);
+
+                })
+                .catch(function(error){
+                    res.status(500).send(error);
+                })
+            }
+
+        } catch (error){
+            res.status(500).send(error)
+        }
+    },
     login: async (req, res) => {
         const {email, password} = req.body;
 
