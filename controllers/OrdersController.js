@@ -161,10 +161,35 @@ const OrdersController = {
         res.status(200).send(fullOrder);
     },
 
-    // PUT
-    
-
-    // DELETE
+    // PATCH
+    updateStatus: async (req, res) => {
+        try {
+            const orderStatusId = parseInt(req.body.idStatus);
+            
+            if(!orderStatusId){res.status(404).send("Wrong body params.");}
+            
+            const order = await Orders.findByPk(req.params.orderId);
+            if(!order){
+                res.status(404).send("The requested order does not exist");
+            }else{
+                order.ordersstatusesId = orderStatusId;
+                order.save()
+                .then(async function(results){
+                    if(results){
+                        const fullOrderUpdated = await OrdersController.getFullOrderById(results.id)
+                        res.status(200).send(fullOrderUpdated);
+                    }else{
+                        res.status(500).send('Error retrieving the updated order.');
+                    }
+                })
+                .catch(function(error){
+                    res.status(500).send({error:error});
+                })
+            }
+        } catch(error){
+            res.status(500).send({error: error});
+        }
+    }
     
 };
 

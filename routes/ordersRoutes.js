@@ -5,15 +5,11 @@ const OrdersController = require('../controllers/OrdersController');
 
 // GET
 router.get('/type/:type', verifyToken([1,2,3]), OrdersController.getOrdersByType);
-//router.get('/:osId', OrdersStatusController.getOrdersStatus);
 
 // POST
 router.post('/', verifyToken([1,2,3]), OrdersController.newOrder);
 
-// PUT
-//router.put('/:osId', verifyToken([1]), OrdersStatusController.updateOrdersStatus);
-
-// DELETE
-//router.delete('/:osId', verifyToken([1]), OrdersStatusController.deleteOrdersStatus);
+// PATCH
+router.patch('/:orderId', verifyToken([1,2,3]), OrdersController.updateStatus);
 
 module.exports = router;
