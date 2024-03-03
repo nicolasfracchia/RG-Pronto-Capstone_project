@@ -4,6 +4,6 @@
     <ion-card-subtitle>{{ subtitle }}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
-    <app-orders-list [orders]="pendingOrders"></app-orders-list>
+    <app-orders-list [orders]="pendingOrders" [loggedUser]="loggedUser" (refreshOrders)="getPendingOrders()"></app-orders-list>
   </ion-card-content>
 </ion-card>

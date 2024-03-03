@@ -3,7 +3,17 @@
     <ion-title>
       {{ order.OrdersStatus.name }}
     </ion-title>
-    Delivery: {{ order.forDate }} {{ order.forTime }}
+    <ion-item [color]="colors[order.OrdersStatus.id]">
+      Delivery: {{ order.forDate }} {{ order.forTime }}
+    </ion-item>
+    <ion-item *ngIf="loggedUser.role === 1 || loggedUser.role === 2">
+      <form [formGroup]="frm">
+        <ion-select label="Change status to:" formControlName="nextOrderStatus" (ionChange)="changeBtnColor()" [class]="'ion_select_color_'+nextOrderStatusId">
+          <ion-select-option *ngFor="let s of orderStatuses" [value]="s.id">{{ s.name }}</ion-select-option>
+        </ion-select>
+        <ion-button [color]="colors[nextOrderStatusId]" expand="full" (click)="updateStatus()">UPDATE STATUS</ion-button>
+      </form>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 

@@ -18,6 +18,9 @@ export class OrdersService {
   newOrder(order:NewOrder){
     return this.http.post<Order>(`${environment.apiURL}orders`,order);
   }
+  updateStatus(idOrder:number, idStatus:object){
+    return this.http.patch<Order>(`${environment.apiURL}orders/${idOrder}`,idStatus);
+  }
 
   // ORDERS STATUS CRUD
   getAllOrdersStatus(){
