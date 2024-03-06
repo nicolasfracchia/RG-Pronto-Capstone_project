@@ -64,8 +64,10 @@ ion-accordion.productsAccordeon {
           overflow: hidden;
   
           &::ng-deep {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 100%;
+            max-height: 18vh;
+            height:18vh;
+            width:100%;
           }
         }
       }
